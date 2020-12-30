@@ -10,13 +10,13 @@
 		<h1 class="header">THE FORM</h1>
 		<form>
 			<div class="block container">
-				<label class="block-label" for="name">Full Name</label>
+				<label class="block-label" for="name">Album Name</label>
 				<input type="text" id="name">
 			</div>
 			
 			<div class="block container">
-				<label class="block-label" for="age">Age</label>
-				<input type="text" id="age">
+				<label class="block-label" for="price">Price ($)</label>
+				<input type="text" id="price">
 			</div>
 
 			<div class="block container">
@@ -24,23 +24,50 @@
 				<textarea id="desc"></textarea>
 			</div>
 			
-			<div class="block container">
-				<label class="block-label">Gender</label>
-				<div class="genderoptionsholder">
-				<div class="genderoption_block male">
+			<div class="block container extra-bottom-margin">
+				<label class="block-label">Target Audience</label>
+				<div class="audienceoptionsholder">
+				<div class="audienceoption_block male">
 					<input type="radio" class="big-radio" id="male" name="gender" value="male">
-					<label class="inline-label" for="male">Male</label><br>
+					<label class="inline-label" for="male">Teens</label><br>
 				</div>
 
-				<div class="genderoption_block female">
+				<div class="audienceoption_block female">
 					<input type="radio" class="big-radio" id="female" name="gender" value="female">
-					<label class="inline-label" for="female">Female</label><br>
+					<label class="inline-label" for="female">Millenials</label><br>
 				</div>
 
-				<div class="genderoption_block other">
+				<div class="audienceoption_block other">
 					<input type="radio" class="big-radio" id="other" name="gender" value="other">
-					<label class="inline-label" for="other">Other</label>
+					<label class="inline-label" for="other">Seniors</label>
 				</div>
+				</div>
+			</div>
+
+			<div class="block container">
+				<label class="block-label">Genres</label>
+				<div class="genreholder">
+
+				<div class="genreoption_block">
+					<input type="checkbox" class="big-radio" id="pop" name="genre" value="pop">
+					<label class="inline-label" for="pop">Pop</label><br>
+				</div>
+
+				<div class="genreoption_block border-left border-right">
+					<input type="checkbox" class="big-radio" id="folk" name="genre" value="folk">
+					<label class="inline-label" for="folk">Folk</label><br>
+				</div>
+
+				<div class="genreoption_block border-right">
+					<input type="checkbox" class="big-radio" id="blues" name="genre" value="blues">
+					<label class="inline-label" for="blues">Blues</label><br>
+				</div>
+
+				<div class="genreoption_block">
+					<input type="checkbox" class="big-radio" id="disco" name="genre" value="disco">
+					<label class="inline-label" for="disco">Disco</label><br>
+				</div>
+
 				</div>
 			</div>
 
