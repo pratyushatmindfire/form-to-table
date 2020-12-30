@@ -8,6 +8,18 @@ body
 	display: flex;
 }
 
+.header
+{
+	text-align: center;
+    font-family: system-ui;
+    font-weight: 600;
+    margin-top: 8%;
+    margin-bottom: 8%;
+    word-spacing: 0.2em;
+    letter-spacing: 0.2em;
+    font-size: 4em;
+}
+
 .split
 {
 	width: 50%;
@@ -15,6 +27,99 @@ body
 
 .formarea
 {
+	height: 100vh;
 	color: white;
-	background-color: black;
+	background-color: #13003d;
+}
+
+.tablearea
+{
+	height: 100vh;
+	color: white;
+	background-color: #2a1737;
+}
+
+.block-label
+{
+	display: block;
+    font-family: system-ui;
+    font-weight: 700;
+    font-size: larger;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.inline-label
+{
+	display: inline;
+	font-family: system-ui;
+	font-size: 1.3em;
+
+}
+
+.block.container
+{
+	text-align: center;
+	margin-bottom: 2em;
+}
+
+input#name, input#age
+{
+	margin-top: 1%;
+    margin-bottom: 2%;
+    width: 35%;
+    height: 3em;
+    background-color: #251d4a;
+    border: none;
+    font-size: 1.4em;
+    padding-left: 1%;
+    letter-spacing: 0.2em;
+    text-align: center;
+    border-radius: 26px;
+    color: wheat;
+}
+
+textarea#desc
+{
+	margin-top: 1%;
+    margin-bottom: 2%;
+    width: 35%;
+    min-width: 35%;
+    max-width: 35%;
+    height: 5em;
+    min-height: 5em;
+    max-height: 8em;
+    background-color: #251d4a;
+    border: none;
+    font-size: 1.4em;
+    padding-left: 1%;
+    padding-top: 2%;
+    letter-spacing: 0.2em;
+    text-align: center;
+    border-radius: 26px;
+    color: wheat;	
+}
+
+input#name:focus, input#age:focus, textarea#desc:focus
+{
+	outline: none;
+}
+
+.genderoptionsholder
+{
+	display: flex;
+    justify-content: center;
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+
+.genderoption_block
+{
+	width: 20%;
+}
+
+.big-radio
+{
+	height: 1.8em;
+    width: 2em;
 }
