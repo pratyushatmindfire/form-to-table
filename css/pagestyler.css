@@ -1,0 +1,20 @@
+.column
+{
+	border: 1px solid black;
+}
+
+body
+{
+	display: flex;
+}
+
+.split
+{
+	width: 50%;
+}
+
+.formarea
+{
+	color: white;
+	background-color: black;
+}

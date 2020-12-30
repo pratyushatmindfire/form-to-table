@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FormToTable</title>
+	<link rel="stylesheet" type="text/css" href="../css/pagestyler.css">
+	<script type="text/javascript" src="../js/controlscript.js"></script>
+</head>
+<body>
+	<div class="formarea split">
+		<h1>THE FORM</h1>
+		<form>
+			<div class="name_block">
+				<label for="age">Full Name</label>
+				<input type="text" placeholder="name" id="name">
+			</div>
+			
+			<div class="age_block">
+				<label for="age">Age</label>
+				<input type="number" placeholder="age" id="age">
+			</div>
+			
+			<div class="gender_block">
+				<label>Gender</label>
+				<div class="genderoption_block male">
+					<input type="radio" id="male" name="gender" value="male">
+					<label for="male">Male</label><br>
+				</div>
+
+				<div class="genderoption_block female">
+					<input type="radio" id="female" name="gender" value="female">
+					<label for="female">Female</label><br>
+				</div>
+
+				<div class="genderoption_block other">
+					<input type="radio" id="other" name="gender" value="other">
+					<label for="other">Other</label>
+				</div>
+			</div>
+
+			<button type="submit">Submit</button>
+
+		</form>
+	</div>
+
+	<div class="tablearea split">
+		<h1>THE TABLE</h1>
+		<table class="dataTable">
+  			<tr>
+    			<th class="column">Firstname</th>
+    			<th class="column">Lastname</th>
+    			<th class="column">Age</th>
+    		</tr>
+		</table>
+	</div>
+</body>
+</html>
