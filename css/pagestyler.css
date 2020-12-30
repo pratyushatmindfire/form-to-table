@@ -144,6 +144,79 @@ input#name:focus, input#price:focus, textarea#desc:focus
 	margin-bottom: 3em;
 }
 
+.submit
+{
+	display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    border-radius: 0.8rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #000000;
+    color: #f2cf8d;
+    letter-spacing: 0.1em;
+    border: 1px solid wheat;
+}
+
+.submit:focus
+{
+	outline: none;
+}
+
+.submit:hover
+{
+	background-color: #2a1737;
+}
+.submitarea
+{
+	display: flex;
+	justify-content: center;
+	transform: translate(0%, 90%);
+}
+
 
 
 /*Breakpoint division*/
+
+.data-table
+{
+	width: 74%;
+    margin-left: 13%;
+}
+.column, .tablehead
+{
+	font-family: system-ui;
+    font-weight: 700;
+    font-size: larger;
+    letter-spacing: 0.2em;
+    padding: 1%;
+    border: none;
+    background-color: #4f2f3e;
+    color: #ffadad;
+}
+
+.albumname
+{
+	width: 30%;
+}
+
+.albumprice
+{
+	width: 12%;
+}
+
+.albumdesc
+{
+	width: 30%;
+}
+
+.albumgenres
+{
+	width: 12%;
+}

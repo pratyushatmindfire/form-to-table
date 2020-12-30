@@ -3,7 +3,6 @@
 <head>
 	<title>FormToTable</title>
 	<link rel="stylesheet" type="text/css" href="../css/pagestyler.css">
-	<script type="text/javascript" src="../js/controlscript.js"></script>
 </head>
 <body>
 	<div class="formarea split">
@@ -28,18 +27,18 @@
 				<label class="block-label">Target Audience</label>
 				<div class="audienceoptionsholder">
 				<div class="audienceoption_block male">
-					<input type="radio" class="big-radio" id="male" name="gender" value="male">
-					<label class="inline-label" for="male">Teens</label><br>
+					<input type="radio" class="big-radio" id="teens" name="targetAudience" value="teens">
+					<label class="inline-label" for="teens">Teens</label><br>
 				</div>
 
 				<div class="audienceoption_block female">
-					<input type="radio" class="big-radio" id="female" name="gender" value="female">
-					<label class="inline-label" for="female">Millenials</label><br>
+					<input type="radio" class="big-radio" id="millenials" name="targetAudience" value="millenials">
+					<label class="inline-label" for="millenials">Millenials</label><br>
 				</div>
 
 				<div class="audienceoption_block other">
-					<input type="radio" class="big-radio" id="other" name="gender" value="other">
-					<label class="inline-label" for="other">Seniors</label>
+					<input type="radio" class="big-radio" id="seniors" name="targetAudience" value="seniors">
+					<label class="inline-label" for="seniors">Seniors</label>
 				</div>
 				</div>
 			</div>
@@ -71,20 +70,28 @@
 				</div>
 			</div>
 
-			<button type="submit">Submit</button>
+			<div class="submitarea">
+				<button onclick="addtoTable()" class="submit">Submit</button>
+			</div>
 
 		</form>
 	</div>
 
 	<div class="tablearea split">
 		<h1 class="header">THE TABLE</h1>
-		<table class="dataTable">
+		<table class="data-table">
   			<tr>
-    			<th class="column">Firstname</th>
-    			<th class="column">Lastname</th>
-    			<th class="column">Age</th>
+    			<th class="column tablehead albumname">Album Name</th>
+    			<th class="column tablehead albumprice">Price ($)</th>
+    			<th class="column tablehead albumdesc">Description</th>
+    			<th class="column tablehead albumtargetaud">Target Audience</th>
+    			<th class="column tablehead albumgenres">Genres</th>
     		</tr>
 		</table>
 	</div>
+
+
+
+	<script type="text/javascript" src="../js/controlscript.js"></script>
 </body>
 </html>
