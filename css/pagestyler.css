@@ -204,19 +204,34 @@ input#name:focus, input#price:focus, textarea#desc:focus
 .albumname
 {
 	width: 30%;
+	max-width: initial;
+    overflow-wrap: anywhere;
 }
 
 .albumprice
 {
 	width: 12%;
+	max-width: initial;
+    overflow-wrap: anywhere;
 }
 
 .albumdesc
 {
 	width: 30%;
+	max-width: initial;
+    overflow-wrap: anywhere;
 }
 
 .albumgenres
 {
 	width: 12%;
+	max-width: initial;
+    overflow-wrap: anywhere;
+}
+
+.recordrow
+{
+	text-align: center;
+    padding: 1%;
+    font-weight: 400;
 }
