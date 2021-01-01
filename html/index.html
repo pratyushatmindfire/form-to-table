@@ -3,27 +3,41 @@
 <head>
 	<title>FormToTable</title>
 	<link rel="stylesheet" type="text/css" href="../css/pagestyler.css">
+
 </head>
 <body>
 	<div class="formarea split">
 		<h1 class="header">THE FORM</h1>
 		<form>
-			<div class="block container">
+			<div class="block container albumnameblock">
+				<div class="block-core-div">
 				<label class="block-label" for="name">Album Name</label>
 				<input type="text" id="name">
+				</div>
 			</div>
 			
-			<div class="block container">
+			<div class="block container priceblock">
+				<div class="block-core-div">
 				<label class="block-label" for="price">Price ($)</label>
 				<input type="text" id="price">
+				</div>
 			</div>
 
-			<div class="block container">
+			<div class="block container albumdescription">
+				<div class="block-core-div">
 				<label class="block-label" for="desc">Description</label>
 				<textarea id="desc"></textarea>
+				</div>
+			</div>
+
+			<div class="block container albumreleasedate">
+				<div class="block-core-div">
+				<label class="block-label" for="date">Release Date</label>
+				<input type="date" id="date" name="releaseDate">
+				</div>
 			</div>
 			
-			<div class="block container extra-bottom-margin">
+			<div class="block container extra-bottom-margin targetaud">
 				<label class="block-label">Target Audience</label>
 				<div class="audienceoptionsholder">
 				<div class="audienceoption_block male">
@@ -43,7 +57,7 @@
 				</div>
 			</div>
 
-			<div class="block container">
+			<div class="block container genders">
 				<label class="block-label">Genres</label>
 				<div class="genreholder">
 
@@ -70,7 +84,7 @@
 				</div>
 			</div>
 
-			<div class="submitarea">
+			<div class="footer">
 				<button onclick="addtoTable()" class="submit">Submit</button>
 			</div>
 
@@ -94,7 +108,6 @@
     		</tbody>
 		</table>
 	</div>
-
 
 
 	<script type="text/javascript" src="../js/controlscript.js"></script>
