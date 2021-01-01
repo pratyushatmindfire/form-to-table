@@ -166,7 +166,7 @@ input#price
     color: wheat;
 }
 
-input#date
+input#releasedate
 {
 	margin-top: 1%;
     margin-bottom: 2%;
@@ -287,8 +287,8 @@ input#name:focus, input#price:focus, textarea#desc:focus
 
 .data-table
 {
-	width: 74%;
-    margin-left: 13%;
+	width: 90%;
+    margin-left: 5%;
 }
 .column, .tablehead
 {
@@ -304,14 +304,14 @@ input#name:focus, input#price:focus, textarea#desc:focus
 
 .albumname
 {
-	width: 30%;
+	width: 20%;
 	max-width: initial;
     overflow-wrap: anywhere;
 }
 
 .albumprice
 {
-	width: 12%;
+	width: 10%;
 	max-width: initial;
     overflow-wrap: anywhere;
 }
@@ -323,11 +323,21 @@ input#name:focus, input#price:focus, textarea#desc:focus
     overflow-wrap: anywhere;
 }
 
+.albumtargetaud
+{
+	width: 12%;
+}
+
 .albumgenres
 {
 	width: 12%;
 	max-width: initial;
     overflow-wrap: anywhere;
+}
+
+.albumreldate
+{
+	width: 16%;
 }
 
 .recordrow
