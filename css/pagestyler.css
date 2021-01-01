@@ -27,14 +27,14 @@ body
 
 .formarea
 {
-	height: 100vh;
+	height: 115vh;
 	color: white;
 	background-color: #13003d;
 }
 
 .tablearea
 {
-	height: 100vh;
+	height: 115vh;
 	color: white;
 	background-color: #2a1737;
 }
@@ -88,7 +88,7 @@ body
 	width: 100%;
 }
 
-.block.container.genders
+.block.container.genres
 {
 	width: 100%;
 }
@@ -169,7 +169,7 @@ input#price
 input#releasedate
 {
 	margin-top: 1%;
-    margin-bottom: 2%;
+    margin-bottom: 0.8%;
     width: 81.5%;
     height: 3em;
     background-color: #251d4a;
@@ -186,9 +186,9 @@ input#releasedate
 textarea#desc
 {
 	margin-top: 1%;
-    margin-bottom: 2%;
+    margin-bottom: 0.8%;
     width: 81.5%;
-    min-width: 35%;
+    min-width: 81.5%;
     max-width: 81.5%;
     height: 5em;
     min-height: 5em;
@@ -209,12 +209,33 @@ input#name:focus, input#price:focus, textarea#desc:focus
 	outline: none;
 }
 
+#validatorMessage
+{
+	margin: 0%;
+    text-align: center;
+    color: #ff5e00;
+    font-size: larger;
+    font-family: monospace;
+    display: none;
+}
+
+.albumdescription #validatorMessage, .albumreleasedate #validatorMessage
+{
+	width:81.5%;
+}
+
+.genres #validatorMessage, .targetaud #validatorMessage,
+{
+	width: 100%;
+}
+
+
 .audienceoptionsholder, .genreholder
 {
 	display: flex;
     justify-content: center;
     margin-top: 1%;
-    margin-bottom: 2%;
+    margin-bottom: 0.8%;
 }
 
 .audienceoption_block, .genreoption_block

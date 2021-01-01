@@ -8,12 +8,14 @@ function addtoTable()
 	var albumname=document.getElementById('name').value.trim();
 	var albumprice=document.getElementById('price').value.trim();
 	var albumdesc=document.getElementById('desc').value.trim();
+	var albumreleasedate = document.getElementById('releasedate').value;
 	var targetAudienceNodeList = document.getElementsByName('targetAudience');
 	var albumgenreNodeList=document.getElementsByName('genre');
-	var albumreleasedate = document.getElementById('releasedate').value;
 
 	var targetAudience=[];
 	var albumgenres=[];
+
+	var submitDecision=false;
 
 	//Iterate through all radio nodelist to determine the selected one
 	for(var each of targetAudienceNodeList)
@@ -42,11 +44,32 @@ function addtoTable()
 
 	console.log(albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate)
 
-	//Call the function to append new row to table
-	appendchildtoTable(albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate);
 
-	//Clear the input fields
-	clearDOM();
+	submitDecision=validateAlbumName();
+	submitDecision=validateAlbumPrice();
+	submitDecision=validateAlbumDescription();
+	submitDecision=validateDate();
+	submitDecision=validateTargetAudience();
+	submitDecision=validateGenres();
+
+	if(submitDecision===true)
+	{
+		//Update price value as per validation
+		var albumprice=document.getElementById('price').value.trim();
+
+		// Call the function to append new row to table
+		appendchildtoTable(albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate);
+
+		//Clear form input fields
+		clearDOM();
+	}
+
+	
+
+	else
+	{
+		console.log("Check invalid inputs!")
+	}
 }
 
 function appendchildtoTable(name, price, desc, audience, genres, date)
@@ -84,6 +107,8 @@ function clearDOM()
 	document.getElementById('releasedate').value="";
 
 
+
+
 	for(var each of document.getElementsByName('genre'))
 	{
 		each.checked = false;
@@ -114,8 +139,16 @@ function validateAlbumName()
 		flag=1;
 	}
 
-	if(flag===0){return true}
-	else {return false}
+	if(flag===0)
+	{
+		document.querySelector('.albumnameblock #validatorMessage').style.display='none';
+		return true
+	}
+	else 
+	{
+		document.querySelector('.albumnameblock #validatorMessage').style.display='block';
+		return false
+	}
 }
 
 function validateAlbumPrice()
@@ -124,6 +157,11 @@ function validateAlbumPrice()
 	var originalpriceval=document.getElementById('price').value.trim();
     price=originalpriceval.split('.')
     console.log(price)
+
+    if(originalpriceval.trim().length==0)
+    {
+    	flag=1;
+    }
     
     // Check for letters
     if (isNaN(originalpriceval))
@@ -176,8 +214,16 @@ function validateAlbumPrice()
     	flag=1;
     }
     
-    if(flag===0){return true}
-    else {return false}
+    if(flag===0)
+    {
+    	document.querySelector('.priceblock #validatorMessage').style.display='none';
+    	return true
+    }
+    else 
+    {
+    	document.querySelector('.priceblock #validatorMessage').style.display='block';
+    	return false
+    }
 }
 
 function validateAlbumDescription()
@@ -190,8 +236,38 @@ function validateAlbumDescription()
 		flag=1;
 	}
 
-	if(flag===0){return true}
-    else {return false}
+	if(flag===0)
+	{
+		document.querySelector('.albumdescription #validatorMessage').style.display='none';
+		return true
+	}
+    else 
+    {
+    	document.querySelector('.albumdescription #validatorMessage').style.display='block';
+    	return false
+    }
+}
+
+function validateDate()
+{
+	var flag=0;
+	var relDate = document.getElementById('releasedate').value;
+
+	if(relDate=='')
+	{
+		flag=1;
+	}
+
+	if(flag===0)
+	{
+		document.querySelector('.albumreleasedate #validatorMessage').style.display='none';
+		return true
+	}
+    else 
+    {
+    	document.querySelector('.albumreleasedate #validatorMessage').style.display='block';
+    	return false
+    }
 }
 
 function validateTargetAudience()
@@ -207,8 +283,16 @@ function validateTargetAudience()
 		}
 	}
 
-	if(flag===0){return true}
-    else {return false}
+	if(flag===0)
+	{
+		document.querySelector('.albumreleasedate #validatorMessage').style.display='none';
+		return true
+	}
+    else 
+    {
+    	document.querySelector('.targetaud #validatorMessage').style.display='block';
+    	return false
+    }
 }
 
 function validateGenres()
@@ -224,6 +308,14 @@ function validateGenres()
 		}
 	}
 
-	if(flag===0){return true}
-    else {return false}
+	if(flag===0)
+	{
+		document.querySelector('.albumreleasedate #validatorMessage').style.display='none';
+		return true
+	}
+    else 
+    {
+    	document.querySelector('.genres #validatorMessage').style.display='block';
+    	return false
+    }
 }
