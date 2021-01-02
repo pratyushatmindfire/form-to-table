@@ -15,8 +15,6 @@ function addtoTable()
 	var targetAudience=[];
 	var albumgenres=[];
 
-	var submitDecision=false;
-
 	//Iterate through all radio nodelist to determine the selected one
 	for(var each of targetAudienceNodeList)
 	{
@@ -44,15 +42,7 @@ function addtoTable()
 
 	console.log(albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate)
 
-
-	submitDecision=validateAlbumName();
-	submitDecision=validateAlbumPrice();
-	submitDecision=validateAlbumDescription();
-	submitDecision=validateDate();
-	submitDecision=validateTargetAudience();
-	submitDecision=validateGenres();
-
-	if(submitDecision===true)
+	if(submitDecision())
 	{
 		//Update price value as per validation
 		var albumprice=document.getElementById('price').value.trim();
@@ -253,7 +243,7 @@ function validateDate()
 	var flag=0;
 	var relDate = document.getElementById('releasedate').value;
 
-	if(relDate=='')
+	if(relDate==="")
 	{
 		flag=1;
 	}
@@ -261,13 +251,14 @@ function validateDate()
 	if(flag===0)
 	{
 		document.querySelector('.albumreleasedate #validatorMessage').style.display='none';
-		return true
+		return true;
 	}
     else 
     {
     	document.querySelector('.albumreleasedate #validatorMessage').style.display='block';
-    	return false
+    	
     }
+    return false;
 }
 
 function validateTargetAudience()
@@ -285,7 +276,7 @@ function validateTargetAudience()
 
 	if(flag===0)
 	{
-		document.querySelector('.albumreleasedate #validatorMessage').style.display='none';
+		document.querySelector('.targetaud #validatorMessage').style.display='none';
 		return true
 	}
     else 
@@ -310,7 +301,7 @@ function validateGenres()
 
 	if(flag===0)
 	{
-		document.querySelector('.albumreleasedate #validatorMessage').style.display='none';
+		document.querySelector('.genres #validatorMessage').style.display='none';
 		return true
 	}
     else 
@@ -318,4 +309,41 @@ function validateGenres()
     	document.querySelector('.genres #validatorMessage').style.display='block';
     	return false
     }
+}
+
+function submitDecision()
+{
+	var decision = true;
+
+	if(!validateAlbumName())
+	{
+		decision=false;
+	}
+
+	if(!validateAlbumPrice())
+	{
+		decision=false;
+	}
+
+	if(!validateAlbumDescription())
+	{
+		decision=false;
+	}
+
+	if(!validateDate())
+	{
+		decision=false;
+	}
+
+	if(!validateTargetAudience())
+	{
+		decision=false;
+	}
+
+	if(!validateGenres())
+	{
+		decision=false;
+	}
+
+	return decision;
 }
