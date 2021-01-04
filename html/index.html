@@ -1,121 +1,151 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>FormToTable</title>
-	<link rel="stylesheet" type="text/css" href="../css/pagestyler.css">
+  <title>FormToTable</title>
+  <link rel="stylesheet" type="text/css" href="../css/pagestyler.css">
 
-</head>
-<body>
-	<div class="formarea split">
-		<h1 class="header">THE FORM</h1>
-		<form>
-			<div class="block container albumnameblock">
-				<div class="block-core-div">
-				<label class="block-label" for="name">Album Name</label>
-				<input autocomplete="off" onblur="validateAlbumName()" type="text" id="name">
-				<p id="validatorMessage">Invalid album name</p>
-				</div>
+  </head>
+  <body>
+	  <div class="formarea">
+		  <h1 class="header">THE FORM</h1>
+		  <form>
+		    <div class="block container albumnameblock">
+			  <div class="block-core-div">
+			    <label class="block-label" for="name">Album Name</label>
+			    <input autocomplete="off" onblur="validateAlbumName()" type="text" id="name">
+			    <div class="validatorMessageSpace">
+			      <p id="validatorMessage">Invalid album name</p>
+			    </div>
+			  </div>
 			</div>
 			
 			<div class="block container priceblock">
-				<div class="block-core-div">
-				<label class="block-label" for="price">Price ($)</label>
+			  <div class="block-core-div">
+			    <label class="block-label" for="price">Price ($)</label>
 				<input onblur="validateAlbumPrice()" type="text" id="price">
-				<p id="validatorMessage">Invalid price value</p>
+				<div class="validatorMessageSpace">
+				  <p id="validatorMessage">Invalid price value</p>
 				</div>
+			  </div>
 			</div>
 
 			<div class="block container albumdescription">
-				<div class="block-core-div">
-				<label class="block-label" for="desc">Description</label>
+			  <div class="block-core-div">
+			    <label class="block-label" for="desc">Description</label>
 				<textarea onblur="validateAlbumDescription()" id="desc"></textarea>
-				<p id="validatorMessage">Description cannot be empty</p>
+				<div class="validatorMessageSpace">
+				  <p id="validatorMessage">Description cannot be empty</p>
 				</div>
+			  </div>
 			</div>
 
 			<div class="block container albumreleasedate">
-				<div class="block-core-div">
-				<label class="block-label" for="date">Release Date</label>
+			  <div class="block-core-div">
+			    <label class="block-label" for="date">Release Date</label>
 				<input onblur="validateDate()" type="date" id="releasedate" name="releaseDate">
-				<p id="validatorMessage">Release date is mandatory</p>
+				<div class="validatorMessageSpace">
+				  <p id="validatorMessage">Release date is mandatory</p>
 				</div>
+			  </div>
 			</div>
 			
 			<div class="block container extra-bottom-margin targetaud">
-				<label class="block-label">Target Audience</label>
-				<div class="audienceoptionsholder">
-				<div class="audienceoption_block">
-					<input type="radio" class="big-radio" id="teens" name="targetAudience" value="teens">
+			  <label class="block-label">Target Audience</label>
+			    <div class="audienceoptionsholder">
+			      <div class="audienceoption_block">
+				    <input type="radio" class="big-radio" id="teens" name="targetAudience" value="teens">
 					<label class="inline-label" for="teens">Teens</label><br>
-				</div>
+				  </div>
 
-				<div class="audienceoption_block">
-					<input type="radio" class="big-radio" id="millenials" name="targetAudience" value="millenials">
+				  <div class="audienceoption_block">
+				    <input type="radio" class="big-radio" id="millenials" name="targetAudience" value="millenials">
 					<label class="inline-label" for="millenials">Millenials</label><br>
-				</div>
+				  </div>
 
-				<div class="audienceoption_block">
-					<input type="radio" class="big-radio" id="seniors" name="targetAudience" value="seniors">
+				  <div class="audienceoption_block">
+				    <input type="radio" class="big-radio" id="seniors" name="targetAudience" value="seniors">
 					<label class="inline-label" for="seniors">Seniors</label>
-				</div>
+				  </div>
 
 				</div>
 				<p id="validatorMessage">Choose a target audience</p>
 			</div>
 
 			<div class="block container genres">
-				<label class="block-label">Genres</label>
-				<div class="genreholder">
+			  <label class="block-label">Genres</label>
+			    <div class="genreholder">
 
-				<div class="genreoption_block">
-					<input type="checkbox" class="big-radio" id="pop" name="genre" value="pop">
-					<label class="inline-label" for="pop">Pop</label><br>
-				</div>
+				  <div class="genreoption_block">
+				    <input type="checkbox" class="big-radio" id="pop" name="genre" value="pop">
+				    <label class="inline-label" for="pop">Pop</label><br>
+				  </div>
 
-				<div class="genreoption_block border-left border-right">
-					<input type="checkbox" class="big-radio" id="folk" name="genre" value="folk">
+				  <div class="genreoption_block border-left border-right">
+				    <input type="checkbox" class="big-radio" id="folk" name="genre" value="folk">
 					<label class="inline-label" for="folk">Folk</label><br>
-				</div>
+				  </div>
 
-				<div class="genreoption_block border-right">
-					<input type="checkbox" class="big-radio" id="blues" name="genre" value="blues">
+				  <div class="genreoption_block border-right">
+				    <input type="checkbox" class="big-radio" id="blues" name="genre" value="blues">
 					<label class="inline-label" for="blues">Blues</label><br>
-				</div>
+				  </div>
 
-				<div class="genreoption_block">
-					<input type="checkbox" class="big-radio" id="disco" name="genre" value="disco">
+				  <div class="genreoption_block">
+				    <input type="checkbox" class="big-radio" id="disco" name="genre" value="disco">
 					<label class="inline-label" for="disco">Disco</label><br>
-				</div>
+				  </div>
 
 				</div>
-				<p id="validatorMessage">Choose atleast one genre</p>
+				<div class="validatorMessageSpace">
+				  <p id="validatorMessage">Choose atleast one genre</p>
+				</div>
 			</div>
 
 			<div class="footer">
-				<button onclick="addtoTable()" class="submit">Submit</button>
+			  <button onclick="addtoTable()" class="submit">Submit</button>
 			</div>
 
-		</form>
-	</div>
+		  </form>
+	  </div>
 
-	<div class="tablearea split">
-		<h1 class="header">THE TABLE</h1>
-		<table class="data-table">
-			<thead>
-  			<tr>
-    			<th class="column tablehead albumname">Album Name</th>
-    			<th class="column tablehead albumprice">Price ($)</th>
-    			<th class="column tablehead albumdesc">Description</th>
-    			<th class="column tablehead albumtargetaud">Target Audience</th>
-    			<th class="column tablehead albumgenres">Genres</th>
-    			<th class="column tablehead albumreldate">Release Date</th>
-    		</tr>
+	  <div class="tablearea">
+	    <h1 class="header">THE TABLE</h1>
+		  <table class="data-table">
+		    <thead>
+  			  <tr>
+    			  <th class="column tablehead albumname">Album Name</th>
+    			  <th class="column tablehead albumprice">Price ($)</th>
+    			  <th class="column tablehead albumdesc">Description</th>
+    			  <th class="column tablehead albumtargetaud">Target Audience</th>
+    			  <th class="column tablehead albumgenres">Genres</th>
+    			  <th class="column tablehead albumreldate">Release Date</th>
+    			  <th class="column tablehead albumchanges">Make Changes</th>
+    		  </tr>
     		</thead>
 
     		<tbody>
+    			<tr class="row_1">
+    			  <td class="column recordrow albumname">Evermore</td>
+    			  <td class="column recordrow albumprice">1.99</td>
+    			  <td class="column recordrow albumdesc">A neverending sad prose of love and life</td>
+    			  <td class="column recordrow albumtargetaud">Millenials</td>
+    			  <td class="column recordrow albumgenres">Folk</td>
+    			  <td class="column recordrow albumreldate">2019-11-11</td>
+    			  <td class="column recordrow albumchanges"><label onclick="sendDataToForm(1)">Edit</label><br><label onclick="deleteDataFromForm(1)">Delete</label></td>
+    			</tr>
+
+    			<tr class="row_2">
+    			  <td class="column recordrow albumname">Evermorey</td>
+    			  <td class="column recordrow albumprice">1.99</td>
+    			  <td class="column recordrow albumdesc">A neverending sad prose of love and life</td>
+    			  <td class="column recordrow albumtargetaud">Millenials</td>
+    			  <td class="column recordrow albumgenres">Folk</td>
+    			  <td class="column recordrow albumreldate">2020-11-11</td>
+    			  <td class="column recordrow albumchanges"><label onclick="sendDataToForm(2)">Edit</label><br><label onclick="deleteDataFromForm(2)">Delete</label></td>
+    			</tr>
     		</tbody>
-		</table>
-	</div>
+		  </table>
+	  </div>
 
 
 	<script type="text/javascript" src="../js/controlscript.js"></script>

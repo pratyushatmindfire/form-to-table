@@ -20,14 +20,10 @@ body
     font-size: 4em;
 }
 
-.split
-{
-	width: 50%;
-}
-
 .formarea
 {
 	height: 115vh;
+    width: 40%;
 	color: white;
 	background-color: #13003d;
 }
@@ -35,6 +31,7 @@ body
 .tablearea
 {
 	height: 115vh;
+    width: 60%;
 	color: white;
 	background-color: #2a1737;
 }
@@ -128,6 +125,11 @@ body
 .albumreleasedate .block-core-div .block-label
 {
 	width: 81.5%;
+}
+
+.validatorMessageSpace
+{
+    height: 1.7vh;
 }
 
 
@@ -332,14 +334,14 @@ input#name:focus, input#price:focus, textarea#desc:focus
 
 .albumprice
 {
-	width: 10%;
+	width: 8%;
 	max-width: initial;
     overflow-wrap: anywhere;
 }
 
 .albumdesc
 {
-	width: 30%;
+	width: 26%;
 	max-width: initial;
     overflow-wrap: anywhere;
 }
@@ -351,14 +353,19 @@ input#name:focus, input#price:focus, textarea#desc:focus
 
 .albumgenres
 {
-	width: 12%;
+	width: 10%;
 	max-width: initial;
     overflow-wrap: anywhere;
 }
 
 .albumreldate
 {
-	width: 16%;
+	width: 12%;
+}
+
+.albumchanges
+{
+    width: 12%;
 }
 
 .recordrow

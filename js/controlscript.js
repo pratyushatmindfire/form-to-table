@@ -1,8 +1,12 @@
-console.log("Holla!")
+console.log("JS Connected!")
+var rowIdtoEdit=-1;
 
 function addtoTable()
 {
+
 	event.preventDefault();
+
+	var writeMode=document.getElementsByClassName('submit')[0].innerText;
 
 	//Fetch reference to DOM Nodes
 	var albumname=document.getElementById('name').value.trim();
@@ -48,7 +52,18 @@ function addtoTable()
 		var albumprice=document.getElementById('price').value.trim();
 
 		// Call the function to append new row to table
-		appendchildtoTable(albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate);
+		if(writeMode==='Submit')
+		{
+			appendchildtoTable(albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate);
+		}
+
+		else
+		{
+			updateTableRow(rowIdtoEdit, albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate);
+			rowIdtoEdit=-1;
+			document.getElementsByClassName('submit')[0].innerText="Submit";
+		}
+		
 
 		//Clear form input fields
 		clearDOM();
@@ -65,7 +80,9 @@ function addtoTable()
 function appendchildtoTable(name, price, desc, audience, genres, date)
 {
 	var tableReference = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0];
+	var rowcount=document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr').length;
 	var row = tableReference.insertRow(-1);
+	row.classList.add("row_"+(rowcount+1));
 
 	var cell1=row.insertCell(0);
 	var cell2=row.insertCell(1);
@@ -73,6 +90,7 @@ function appendchildtoTable(name, price, desc, audience, genres, date)
 	var cell4=row.insertCell(3);
 	var cell5=row.insertCell(4);
 	var cell6=row.insertCell(5);
+	var cell7=row.insertCell(6);
 
 	cell1.classList.add('column', 'recordrow', 'albumname');
 	cell2.classList.add('column', 'recordrow', 'albumprice');
@@ -80,6 +98,7 @@ function appendchildtoTable(name, price, desc, audience, genres, date)
 	cell4.classList.add('column', 'recordrow', 'albumtargetaud');
 	cell5.classList.add('column', 'recordrow', 'albumgenres');
 	cell6.classList.add('column', 'recordrow', 'albumreldate');
+	cell7.classList.add('column', 'recordrow', 'albumchanges');
 
 	cell1.innerHTML=name;
 	cell2.innerHTML=price;
@@ -87,6 +106,7 @@ function appendchildtoTable(name, price, desc, audience, genres, date)
 	cell4.innerHTML=audience;
 	cell5.innerHTML=genres;
 	cell6.innerHTML=date;
+	cell7.innerHTML='<label onclick="sendDataToForm('+(rowcount+1)+')">Edit</label><br><label onclick="deleteDataFromForm('+(rowcount+1)+')">Delete</label';
 }
 
 function clearDOM()
@@ -347,3 +367,47 @@ function submitDecision()
 
 	return decision;
 }
+
+function sendDataToForm(id)
+{
+	console.log(id);
+	var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_'+id)[0];
+	document.getElementById('name').value=fetchedRow.getElementsByTagName('td')[0].innerText;
+	document.getElementById('price').value=fetchedRow.getElementsByTagName('td')[1].innerText;
+	document.getElementById('desc').value=fetchedRow.getElementsByTagName('td')[2].innerText;
+	document.getElementById('releasedate').value=fetchedRow.getElementsByTagName('td')[5].innerText;
+
+	document.getElementsByClassName('submit')[0].innerText="Update";
+
+	for (var each of document.getElementsByName('targetAudience'))
+	{
+		each.checked=(capitalize(each.value)===fetchedRow.getElementsByTagName('td')[3].innerText)
+	}
+
+	for (var each of document.getElementsByName('genre'))
+	{
+		console.log(fetchedRow.getElementsByTagName('td')[4].innerText.split(/\n/))
+		each.checked=fetchedRow.getElementsByTagName('td')[4].innerText.split(/\n/).includes(capitalize(each.value))
+	}
+
+	rowIdtoEdit=id;
+}
+
+function updateTableRow(id, name, price, desc, audience, genres, date)
+{
+	console.log(id);
+	var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_'+id)[0];
+	fetchedRow.getElementsByTagName('td')[0].innerText=name;
+	fetchedRow.getElementsByTagName('td')[1].innerText=price;
+	fetchedRow.getElementsByTagName('td')[2].innerText=desc;
+	fetchedRow.getElementsByTagName('td')[5].innerText=date;
+	fetchedRow.getElementsByTagName('td')[3].innerText=audience;
+	fetchedRow.getElementsByTagName('td')[4].innerText=genres;
+}
+
+function deleteDataFromForm(id)
+{
+	console.log(id);
+	var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_'+id)[0];
+	fetchedRow.remove();
+}	
