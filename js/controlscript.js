@@ -52,7 +52,7 @@ function addtoTable()
 		var albumprice=document.getElementById('price').value.trim();
 
 		// Call the function to append new row to table
-		if(writeMode==='Submit')
+		if(writeMode==='Add')
 		{
 			appendchildtoTable(albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate);
 		}
@@ -61,7 +61,7 @@ function addtoTable()
 		{
 			updateTableRow(rowIdtoEdit, albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate);
 			rowIdtoEdit=-1;
-			document.getElementsByClassName('submit')[0].innerText="Submit";
+			document.getElementsByClassName('submit')[0].innerText="Add";
 		}
 		
 
@@ -381,13 +381,23 @@ function sendDataToForm(id)
 
 	for (var each of document.getElementsByName('targetAudience'))
 	{
-		each.checked=(capitalize(each.value)===fetchedRow.getElementsByTagName('td')[3].innerText)
+		each.checked=capitalize(each.value)===fetchedRow.getElementsByTagName('td')[3].innerText
 	}
 
 	for (var each of document.getElementsByName('genre'))
 	{
-		console.log(fetchedRow.getElementsByTagName('td')[4].innerText.split(/\n/))
-		each.checked=fetchedRow.getElementsByTagName('td')[4].innerText.split(/\n/).includes(capitalize(each.value))
+		options=fetchedRow.getElementsByTagName('td')[4].innerText.toString();
+		options=options.split(' ').join(',').split('\n').join(',').split(',')
+		// if(options.includes('\n'))
+		// {
+		// 	options=options.split('\n');
+		// }
+
+		// else
+		// {
+		// 	options=options.split(' ');
+		// }
+		each.checked=options.includes(capitalize(each.value))
 	}
 
 	rowIdtoEdit=id;
@@ -408,6 +418,11 @@ function updateTableRow(id, name, price, desc, audience, genres, date)
 function deleteDataFromForm(id)
 {
 	console.log(id);
+
+	if(id==rowIdtoEdit)
+	{
+		document.getElementsByClassName('submit')[0].innerText='Add';
+	}
 	var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_'+id)[0];
 	fetchedRow.remove();
-}	
+}
