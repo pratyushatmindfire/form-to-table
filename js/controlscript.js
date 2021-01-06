@@ -9,11 +9,8 @@ seedFrontEnd(renderData);
 
 function seedFrontEnd(inputData)
 {
-	console.log("Seeder")
-	console.log(inputData)
 	for(var each of inputData)
 	{
-		console.log(inputData)
 		let {s_albumname: name, s_albumprice: price, s_albumdesc: desc, s_albumaudience: audience, s_albumgenres: genres, s_albumdate: date}=each;
 		appendchildtoTable(name, price, desc, audience, genres, date);
 	}
@@ -62,7 +59,7 @@ function addtoTable()
 
 
 
-	console.log(albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate)
+	
 
 	if(submitDecision())
 	{
@@ -91,7 +88,6 @@ function addtoTable()
 
 	else
 	{
-		console.log("Check invalid inputs!")
 	}
 }
 
@@ -178,7 +174,24 @@ function updateStorage(index, name, price, desc, audience, genres, date)
 {
 	var currentArray=JSON.parse(localStorage.getItem('tableStorage'));
 	var editedObject={s_albumname: name, s_albumprice: price, s_albumdesc: desc, s_albumaudience: audience, s_albumgenres: genres, s_albumdate: date};
-	currentArray[index-1]=editedObject;
+	
+	var fetchedRow=document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_'+index)[0];
+	var fetchedOriginalName=fetchedRow.getElementsByClassName('albumname')[0].innerText;
+	var indexToReplace=0;
+	for (var each of currentArray)
+	{
+		if(each.s_albumname!=fetchedOriginalName)
+		{ 
+			indexToReplace=indexToReplace+1; 
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	
+	currentArray[indexToReplace]=editedObject;
 	localStorage.setItem('tableStorage', JSON.stringify(currentArray));
 	updateTableRow(index, name, price, desc, audience, genres, date);
 }
@@ -213,7 +226,6 @@ function validateAlbumPrice()
 	var flag=0;
 	var originalpriceval=document.getElementById('price').value.trim();
     price=originalpriceval.split('.')
-    console.log(price)
 
     if(originalpriceval.trim().length==0)
     {
@@ -223,7 +235,6 @@ function validateAlbumPrice()
     // Check for letters
     if (isNaN(originalpriceval))
     {
-        console.log("Price match", originalpriceval.replace('.', ''))
         flag=1;
     }
 
@@ -232,14 +243,12 @@ function validateAlbumPrice()
     //Irregular inputs
     if(price.length<1 || price.length>2)
     {
-        console.log("Irregular Inps")
         flag=1;
     }
     
     //Negative price
     if(price[0]<0)
     {
-        console.log("Negative price")
         flag=1;
     }
     
@@ -267,7 +276,6 @@ function validateAlbumPrice()
     //More than 2 decimal inpurs
     if(price[1]!=undefined && !isNaN(originalpriceval) && price[1].length>2)
     {
-    	console.log("More than 2 decimal inputs");
     	flag=1;
     }
     
@@ -417,12 +425,10 @@ function submitDecision()
 
 function sendDataToForm(index)
 {
-	console.log(index);
-
 	//Old way via DOM
 	var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_'+index)[0];
 	var ObjectFinder_Name=fetchedRow.getElementsByTagName('td')[0].innerText;
-	console.log("ObjectFinder_Name=", ObjectFinder_Name)
+
 	// document.getElementById('price').value=fetchedRow.getElementsByTagName('td')[1].innerText;
 	// document.getElementById('desc').value=fetchedRow.getElementsByTagName('td')[2].innerText;
 	// document.getElementById('releasedate').value=fetchedRow.getElementsByTagName('td')[5].innerText;
@@ -444,7 +450,7 @@ function sendDataToForm(index)
 
 	//New way via localstorage
 	var currentArray=JSON.parse(localStorage.getItem('tableStorage'));
-	var objectToSendToForm=currentArray.filter(e=> e.s_albumname===ObjectFinder_Name)[0];
+	var objectToSendToForm=currentArray.filter(e=> {if(e!=null){return e.s_albumname===ObjectFinder_Name;}})[0];
 
 	document.getElementById('name').value=objectToSendToForm.s_albumname;
 	document.getElementById('price').value=objectToSendToForm.s_albumprice;
@@ -467,11 +473,20 @@ function sendDataToForm(index)
 
 	document.getElementsByClassName('submit')[0].innerText="Update";
 	rowIdtoEdit=index;
+
+
+	setTimeout(() => {
+	validateAlbumName();
+	validateAlbumPrice();
+	validateAlbumDescription();
+	validateDate();
+	validateTargetAudience();
+	validateGenres();
+}, 1);
 }
 
 function updateTableRow(id, name, price, desc, audience, genres, date)
 {
-	console.log(id);
 	var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_'+id)[0];
 	fetchedRow.getElementsByTagName('td')[0].innerText=name;
 	fetchedRow.getElementsByTagName('td')[1].innerText=price;
@@ -483,8 +498,7 @@ function updateTableRow(id, name, price, desc, audience, genres, date)
 
 function deleteFromStorage(index)
 {
-	console.log(index);
-
+	
 	var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_'+index)[0];
 	var ObjectFinder_Name=fetchedRow.getElementsByTagName('td')[0].innerText;
 
