@@ -388,15 +388,6 @@ function sendDataToForm(id)
 	{
 		options=fetchedRow.getElementsByTagName('td')[4].innerText.toString();
 		options=options.split(' ').join(',').split('\n').join(',').split(',')
-		// if(options.includes('\n'))
-		// {
-		// 	options=options.split('\n');
-		// }
-
-		// else
-		// {
-		// 	options=options.split(' ');
-		// }
 		each.checked=options.includes(capitalize(each.value))
 	}
 
