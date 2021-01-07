@@ -8,13 +8,13 @@
   <body>
 	  <div class="formarea">
 		  <h1 class="header">THE FORM</h1>
-		  <form>
+		  <form id="form-body">
 		    <div class="block container albumnameblock">
 			  <div class="block-core-div">
 			    <label class="block-label" for="name">Album Name</label>
-			    <input autocomplete="off" onblur="validateAlbumName()" type="text" id="name">
+			    <input class="input-box" autocomplete="off" onblur="validateAlbumName()" type="text" id="name">
 			    <div class="validatorMessageSpace">
-			      <p id="validatorMessage">Invalid album name</p>
+			      <p class="validatorMessage">Invalid album name</p>
 			    </div>
 			  </div>
 			</div>
@@ -22,9 +22,9 @@
 			<div class="block container priceblock">
 			  <div class="block-core-div">
 			    <label class="block-label" for="price">Price ($)</label>
-				<input onblur="validateAlbumPrice()" type="text" id="price">
+				<input class="input-box" onblur="validateAlbumPrice()" type="text" id="price">
 				<div class="validatorMessageSpace">
-				  <p id="validatorMessage">Invalid price value</p>
+				  <p class="validatorMessage">Invalid price value</p>
 				</div>
 			  </div>
 			</div>
@@ -32,9 +32,9 @@
 			<div class="block container albumdescription">
 			  <div class="block-core-div">
 			    <label class="block-label" for="desc">Description</label>
-				<textarea onblur="validateAlbumDescription()" id="desc"></textarea>
+				<textarea class="input-box" onblur="validateAlbumDescription()" id="desc"></textarea>
 				<div class="validatorMessageSpace">
-				  <p id="validatorMessage">Description cannot be empty</p>
+				  <p class="validatorMessage">Description cannot be empty</p>
 				</div>
 			  </div>
 			</div>
@@ -42,9 +42,9 @@
 			<div class="block container albumreleasedate">
 			  <div class="block-core-div">
 			    <label class="block-label" for="date">Release Date</label>
-				<input onblur="validateDate()" type="date" id="releasedate" name="releaseDate">
+				<input class="input-box" onblur="validateDate()" type="date" id="releasedate" name="releaseDate">
 				<div class="validatorMessageSpace">
-				  <p id="validatorMessage">Release date is mandatory</p>
+				  <p class="validatorMessage">Release date is mandatory</p>
 				</div>
 			  </div>
 			</div>
@@ -68,7 +68,7 @@
 				  </div>
 
 				</div>
-				<p id="validatorMessage">Choose a target audience</p>
+				<p class="validatorMessage">Choose a target audience</p>
 			</div>
 
 			<div class="block container genres">
@@ -97,7 +97,7 @@
 
 				</div>
 				<div class="validatorMessageSpace">
-				  <p id="validatorMessage">Choose atleast one genre</p>
+				  <p class="validatorMessage">Choose atleast one genre</p>
 				</div>
 			</div>
 
@@ -109,6 +109,14 @@
 	  </div>
 
 	  <div class="tablearea">
+	  	<div class="container themePickerContainer">
+			<select class="themePickerTool" name="theme" id="themePickerTool" onchange="changeTheme(this.value)">
+  				<option value="vivid">Vivid</option>
+  				<option value="dark">Dark</option>
+  				<option value="light">Light</option>
+			</select>
+	  	</div>
+
 	    <h1 class="header">THE TABLE</h1>
 		  <table class="data-table">
 		    <thead>

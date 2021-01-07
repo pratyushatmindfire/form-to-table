@@ -1,10 +1,12 @@
 console.log("JS Connected!")
 var rowIdtoEdit=-1;
-let seedData = '[{"s_albumname":"Evermore","s_albumprice":"1.22","s_albumdesc":"A never ending prose of love and life","s_albumaudience":"Teens","s_albumgenres":"Folk Blues","s_albumdate":"2020-12-20"},{"s_albumname":"Folklore","s_albumprice":"2.99","s_albumdesc":"Demystifying the young age of a 90s american girl","s_albumaudience":"Seniors","s_albumgenres":"Folk","s_albumdate":"2020-11-27"},{"s_albumname":"Reputation","s_albumprice":"4.00","s_albumdesc":"A tale of the snakes that try to get a little bite behind the spotlights","s_albumaudience":"Teens","s_albumgenres":"Pop","s_albumdate":"2019-11-24"},{"s_albumname":"1989","s_albumprice":"3.40","s_albumdesc":"Young, free, and wild life of a woman as she falls in love","s_albumaudience":"Teens","s_albumgenres":"Pop Disco","s_albumdate":"2017-06-07"},{"s_albumname":"Red","s_albumprice":"1.40","s_albumdesc":"Country side feels, old cardigan, and wind in head","s_albumaudience":"Teens","s_albumgenres":"Pop Blues Disco","s_albumdate":"2016-05-20"}]';
+var currentTheme='';
+let seedData = '[{"s_albumname":"Evermore","s_albumprice":"1.22","s_albumdesc":"A never ending prose of love and life","s_albumaudience":"Teens","s_albumgenres":"Folk Blues","s_albumdate":"2020-12-20"},{"s_albumname":"Folklore","s_albumprice":"2.99","s_albumdesc":"Demystifying the young age of a 90s american girl","s_albumaudience":"Seniors","s_albumgenres":"Folk","s_albumdate":"2020-11-27"},{"s_albumname":"Reputation","s_albumprice":"4.00","s_albumdesc":"A tale of the snakes that try to get a little bite behind the spotlights","s_albumaudience":"Teens","s_albumgenres":"Pop","s_albumdate":"2019-11-24"},{"s_albumname":"1989","s_albumprice":"3.40","s_albumdesc":"Young, free, and ccolorful life of a teenagers as they grow","s_albumaudience":"Teens","s_albumgenres":"Pop Disco","s_albumdate":"2017-06-07"},{"s_albumname":"Red","s_albumprice":"1.40","s_albumdesc":"Country side feels, old cardigan, and wind in head","s_albumaudience":"Teens","s_albumgenres":"Pop Blues Disco","s_albumdate":"2016-05-20"}]';
 localStorage.setItem('tableStorage', seedData);
 
 let renderData=JSON.parse(localStorage.getItem('tableStorage'));
 seedFrontEnd(renderData);
+changeTheme('vivid');
 
 
 function seedFrontEnd(inputData)
@@ -82,6 +84,7 @@ function addtoTable()
 
 		//Clear form input fields
 		clearDOM();
+		changeTheme(currentTheme);
 	}
 
 	
@@ -211,12 +214,12 @@ function validateAlbumName()
 
 	if(flag===0)
 	{
-		document.querySelector('.albumnameblock #validatorMessage').style.display='none';
+		document.querySelector('.albumnameblock .validatorMessage').style.display='none';
 		return true
 	}
 	else 
 	{
-		document.querySelector('.albumnameblock #validatorMessage').style.display='block';
+		document.querySelector('.albumnameblock .validatorMessage').style.display='block';
 		return false
 	}
 }
@@ -281,12 +284,12 @@ function validateAlbumPrice()
     
     if(flag===0)
     {
-    	document.querySelector('.priceblock #validatorMessage').style.display='none';
+    	document.querySelector('.priceblock .validatorMessage').style.display='none';
     	return true
     }
     else 
     {
-    	document.querySelector('.priceblock #validatorMessage').style.display='block';
+    	document.querySelector('.priceblock .validatorMessage').style.display='block';
     	return false
     }
 }
@@ -303,12 +306,12 @@ function validateAlbumDescription()
 
 	if(flag===0)
 	{
-		document.querySelector('.albumdescription #validatorMessage').style.display='none';
+		document.querySelector('.albumdescription .validatorMessage').style.display='none';
 		return true
 	}
     else 
     {
-    	document.querySelector('.albumdescription #validatorMessage').style.display='block';
+    	document.querySelector('.albumdescription .validatorMessage').style.display='block';
     	return false
     }
 }
@@ -325,12 +328,12 @@ function validateDate()
 
 	if(flag===0)
 	{
-		document.querySelector('.albumreleasedate #validatorMessage').style.display='none';
+		document.querySelector('.albumreleasedate .validatorMessage').style.display='none';
 		return true;
 	}
     else 
     {
-    	document.querySelector('.albumreleasedate #validatorMessage').style.display='block';
+    	document.querySelector('.albumreleasedate .validatorMessage').style.display='block';
     	
     }
     return false;
@@ -351,12 +354,12 @@ function validateTargetAudience()
 
 	if(flag===0)
 	{
-		document.querySelector('.targetaud #validatorMessage').style.display='none';
+		document.querySelector('.targetaud .validatorMessage').style.display='none';
 		return true
 	}
     else 
     {
-    	document.querySelector('.targetaud #validatorMessage').style.display='block';
+    	document.querySelector('.targetaud .validatorMessage').style.display='block';
     	return false
     }
 }
@@ -376,12 +379,12 @@ function validateGenres()
 
 	if(flag===0)
 	{
-		document.querySelector('.genres #validatorMessage').style.display='none';
+		document.querySelector('.genres .validatorMessage').style.display='none';
 		return true
 	}
     else 
     {
-    	document.querySelector('.genres #validatorMessage').style.display='block';
+    	document.querySelector('.genres .validatorMessage').style.display='block';
     	return false
     }
 }
@@ -422,6 +425,10 @@ function submitDecision()
 
 	return decision;
 }
+
+
+
+
 
 function sendDataToForm(index)
 {
@@ -519,4 +526,189 @@ function deletefromFrontend(id)
 {
 	var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_'+id)[0];
 	fetchedRow.remove();
+	changeTheme(currentTheme);
+}
+
+
+//Theme function
+function changeTheme(color)
+{
+	//Set the global variable current theme
+	currentTheme=color;
+
+	//Fetch headers
+	var allHeaders=document.getElementsByClassName('header');
+
+	//Fetch formarea and tablearea
+	var formareaspace=document.getElementsByClassName('formarea')[0];
+	var tableareaspace=document.getElementsByClassName('tablearea')[0];
+
+	//Fetch input area
+	var inputareaspace=document.getElementsByClassName('input-box');
+
+	//Fetch submit button
+	var submitbutton=document.getElementsByClassName('submit')[0];
+
+	//Fetch validation messages
+	var validationmessages=document.getElementsByClassName('validatorMessage');
+
+	//Fetch table cells
+	var tablecells=document.getElementsByClassName('column');
+
+
+	if(color==='vivid')
+	{
+		//Change header color
+		for(var each of allHeaders)
+		{
+			each.classList.remove('header-black', 'header-white');
+			each.classList.add('header-vivid');
+		}
+
+		//Change inputbox area colors
+		for(var each of inputareaspace)
+		{
+			each.classList.remove('inputbox-gray', 'inputbox-white');
+			each.classList.add('inputbox-vivid');
+		}
+
+		//Change validation messages colors
+		for(var each of validationmessages)
+		{
+			each.classList.remove('validatorMessage-white', 'validatorMessage-blue');
+			each.classList.add('validatorMessage-vivid');
+		}
+
+		//Change table cell colors
+		for(var each of tablecells)
+		{
+			each.classList.remove('column-gray', 'column-gray-alternate', 'column-white', 'column-white-alternate');
+			each.classList.add('column-vivid');
+		}
+
+
+		//Change submit button color
+		submitbutton.classList.remove('submit-gray', 'submit-white');
+		submitbutton.classList.add('submit-vivid');
+
+		//Change formarea color
+		formareaspace.classList.remove('formarea-gray', 'formarea-white');
+		formareaspace.classList.add('formarea-vivid');
+
+		//Change tablearea color
+		tableareaspace.classList.remove('tablearea-black', 'tablearea-white');
+		tableareaspace.classList.add('tablearea-vivid');
+	}
+
+	else if(color==="dark")
+	{
+		//Change header color
+		for(var each of allHeaders)
+		{
+			each.classList.remove('header-vivid', 'header-black');
+			each.classList.add('header-white');
+		}
+
+		//Change inputbox area colors
+		for(var each of inputareaspace)
+		{
+			each.classList.remove('inputbox-vivid', 'inputbox-white');
+			each.classList.add('inputbox-gray');
+		}
+
+		//Change validation messages colors
+		for(var each of validationmessages)
+		{
+			each.classList.remove('validatorMessage-white', 'validatorMessage-vivid');
+			each.classList.add('validatorMessage-blue');
+		}
+
+		//Change table cell colors
+		var i=0;
+		for(var each of tablecells)
+		{
+			each.classList.remove('column-vivid', 'column-gray', 'column-gray-alternate', 'column-white', 'column-white-alternate');
+			
+			if(i%2==0)
+			{
+				each.classList.add('column-gray');
+			}
+
+			else
+			{
+				each.classList.add('column-gray-alternate');
+			}
+
+			i=i+1;
+		}
+
+
+		//Change submit button color
+		submitbutton.classList.remove('submit-vivid', 'submit-white');
+		submitbutton.classList.add('submit-gray');
+
+		//Change formarea color
+		formareaspace.classList.remove('formarea-vivid', 'formarea-white');
+		formareaspace.classList.add('formarea-gray');
+
+		//Change tablearea color
+		tableareaspace.classList.remove('tablearea-vivid', 'tablearea-white');
+		tableareaspace.classList.add('tablearea-black');
+	}
+
+	else if(color==="light")
+	{
+		//Change header color
+		for(var each of allHeaders)
+		{
+			each.classList.remove('header-vivid', 'header-white');
+			each.classList.add('header-black');
+		}
+
+		//Change inputbox area colors
+		for(var each of inputareaspace)
+		{
+			each.classList.remove('inputbox-gray', 'inputbox-vivid');
+			each.classList.add('inputbox-white');
+		}
+
+		//Change validation messages colors
+		for(var each of validationmessages)
+		{
+			each.classList.remove('validatorMessage-vivid', 'validatorMessage-blue');
+			each.classList.add('validatorMessage-white');
+		}
+
+		//Change table cell colors
+		var i=0;
+		for(var each of tablecells)
+		{
+			each.classList.remove('column-vivid', 'column-gray', 'column-gray-alternate', 'column-white', 'column-white-alternate');
+			
+			if(i%2!=0)
+			{
+				each.classList.add('column-white');
+			}
+
+			else
+			{
+				each.classList.add('column-white-alternate');
+			}
+
+			i=i+1;
+		}
+
+
+		//Change submit button color
+		submitbutton.classList.remove('submit-vivid', 'submit-gray');
+		submitbutton.classList.add('submit-white');		
+
+		//Change formarea color
+		formareaspace.classList.remove('formarea-black', 'formarea-vivid');
+		formareaspace.classList.add('formarea-white');
+
+		//Change tablearea color
+		tableareaspace.classList.remove('tablearea-black', 'tablearea-vivid');
+		tableareaspace.classList.add('tablearea-white');
+	}
 }
