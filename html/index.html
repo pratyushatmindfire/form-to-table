@@ -1,143 +1,121 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>FormToTable</title>
-  <link rel="stylesheet" type="text/css" href="../css/pagestyler.css">
-
+  <head>
+    <title>FormToTable</title>
+    <link rel="stylesheet" type="text/css" href="../css/pagestyler.css">
   </head>
   <body>
-	  <div class="formarea">
-		  <h1 class="header">THE FORM</h1>
-		  <form id="form-body">
-		    <div class="block container albumnameblock">
-			  <div class="block-core-div">
-			    <label class="block-label" for="name">Album Name</label>
-			    <input class="input-box" autocomplete="off" onblur="validateAlbumName()" type="text" id="name">
-			    <div class="validatorMessageSpace">
-			      <p class="validatorMessage">Invalid album name</p>
-			    </div>
-			  </div>
-			</div>
-			
-			<div class="block container priceblock">
-			  <div class="block-core-div">
-			    <label class="block-label" for="price">Price ($)</label>
-				<input class="input-box" onblur="validateAlbumPrice()" type="text" id="price">
-				<div class="validatorMessageSpace">
-				  <p class="validatorMessage">Invalid price value</p>
-				</div>
-			  </div>
-			</div>
-
-			<div class="block container albumdescription">
-			  <div class="block-core-div">
-			    <label class="block-label" for="desc">Description</label>
-				<textarea class="input-box" onblur="validateAlbumDescription()" id="desc"></textarea>
-				<div class="validatorMessageSpace">
-				  <p class="validatorMessage">Description cannot be empty</p>
-				</div>
-			  </div>
-			</div>
-
-			<div class="block container albumreleasedate">
-			  <div class="block-core-div">
-			    <label class="block-label" for="date">Release Date</label>
-				<input class="input-box" onblur="validateDate()" type="date" id="releasedate" name="releaseDate">
-				<div class="validatorMessageSpace">
-				  <p class="validatorMessage">Release date is mandatory</p>
-				</div>
-			  </div>
-			</div>
-			
-			<div class="block container extra-bottom-margin targetaud">
-			  <label class="block-label">Target Audience</label>
-			    <div class="audienceoptionsholder">
-			      <div class="audienceoption_block">
-				    <input type="radio" class="big-radio" id="teens" name="targetAudience" value="teens">
-					<label class="inline-label" for="teens">Teens</label><br>
-				  </div>
-
-				  <div class="audienceoption_block">
-				    <input type="radio" class="big-radio" id="millenials" name="targetAudience" value="millenials">
-					<label class="inline-label" for="millenials">Millenials</label><br>
-				  </div>
-
-				  <div class="audienceoption_block">
-				    <input type="radio" class="big-radio" id="seniors" name="targetAudience" value="seniors">
-					<label class="inline-label" for="seniors">Seniors</label>
-				  </div>
-
-				</div>
-				<p class="validatorMessage">Choose a target audience</p>
-			</div>
-
-			<div class="block container genres">
-			  <label class="block-label">Genres</label>
-			    <div class="genreholder">
-
-				  <div class="genreoption_block">
-				    <input type="checkbox" class="big-radio" id="pop" name="genre" value="pop">
-				    <label class="inline-label" for="pop">Pop</label><br>
-				  </div>
-
-				  <div class="genreoption_block border-left border-right">
-				    <input type="checkbox" class="big-radio" id="folk" name="genre" value="folk">
-					<label class="inline-label" for="folk">Folk</label><br>
-				  </div>
-
-				  <div class="genreoption_block border-right">
-				    <input type="checkbox" class="big-radio" id="blues" name="genre" value="blues">
-					<label class="inline-label" for="blues">Blues</label><br>
-				  </div>
-
-				  <div class="genreoption_block">
-				    <input type="checkbox" class="big-radio" id="disco" name="genre" value="disco">
-					<label class="inline-label" for="disco">Disco</label><br>
-				  </div>
-
-				</div>
-				<div class="validatorMessageSpace">
-				  <p class="validatorMessage">Choose atleast one genre</p>
-				</div>
-			</div>
-
-			<div class="footer">
-			  <button onclick="addtoTable()" class="submit">Add</button>
-			</div>
-
-		  </form>
-	  </div>
-
-	  <div class="tablearea">
-	  	<div class="container themePickerContainer">
-			<select class="themePickerTool" name="theme" id="themePickerTool" onchange="changeTheme(this.value)">
-  				<option value="vivid">Vivid</option>
-  				<option value="dark">Dark</option>
-  				<option value="light">Light</option>
-			</select>
-	  	</div>
-
-	    <h1 class="header">THE TABLE</h1>
-		  <table class="data-table">
-		    <thead>
-  			  <tr>
-    			  <th class="column tablehead albumname">Album Name</th>
-    			  <th class="column tablehead albumprice">Price ($)</th>
-    			  <th class="column tablehead albumdesc">Description</th>
-    			  <th class="column tablehead albumtargetaud">Target Audience</th>
-    			  <th class="column tablehead albumgenres">Genres</th>
-    			  <th class="column tablehead albumreldate">Release Date</th>
-    			  <th class="column tablehead albumchanges">Make Changes</th>
-    		  </tr>
-    		</thead>
-
-    		<tbody>
-    			
-    		</tbody>
-		  </table>
-	  </div>
-
-
-	<script type="text/javascript" src="../js/controlscript.js"></script>
-</body>
+    <div class="formarea">
+      <h1 class="header">THE FORM</h1>
+      <form id="form-body">
+        <div class="block container albumnameblock">
+          <div class="block-core-div">
+            <label class="block-label" for="name">Album Name</label>
+            <input class="input-box" autocomplete="off" onblur="validateAlbumName()" type="text" id="name">
+            <div class="validatorMessageSpace">
+              <p class="validatorMessage">Invalid album name</p>
+            </div>
+          </div>
+        </div>
+        <div class="block container priceblock">
+          <div class="block-core-div">
+            <label class="block-label" for="price">Price ($)</label>
+            <input class="input-box" onblur="validateAlbumPrice()" type="text" id="price">
+            <div class="validatorMessageSpace">
+              <p class="validatorMessage">Invalid price value</p>
+            </div>
+          </div>
+        </div>
+        <div class="block container albumdescription">
+          <div class="block-core-div">
+            <label class="block-label" for="desc">Description</label>
+            <textarea class="input-box" onblur="validateAlbumDescription()" id="desc"></textarea>
+            <div class="validatorMessageSpace">
+              <p class="validatorMessage">Description cannot be empty</p>
+            </div>
+          </div>
+        </div>
+        <div class="block container albumreleasedate">
+          <div class="block-core-div">
+            <label class="block-label" for="date">Release Date</label>
+            <input class="input-box" onblur="validateDate()" type="date" id="releasedate" name="releaseDate">
+            <div class="validatorMessageSpace">
+              <p class="validatorMessage">Release date is mandatory</p>
+            </div>
+          </div>
+        </div>
+        <div class="block container extra-bottom-margin targetaud">
+          <label class="block-label">Target Audience</label>
+          <div class="audienceoptionsholder">
+            <div class="audienceoption_block">
+              <input type="radio" class="big-radio" id="teens" name="targetAudience" value="teens">
+              <label class="inline-label" for="teens">Teens</label><br>
+            </div>
+            <div class="audienceoption_block">
+              <input type="radio" class="big-radio" id="millenials" name="targetAudience" value="millenials">
+              <label class="inline-label" for="millenials">Millenials</label><br>
+            </div>
+            <div class="audienceoption_block">
+              <input type="radio" class="big-radio" id="seniors" name="targetAudience" value="seniors">
+              <label class="inline-label" for="seniors">Seniors</label>
+            </div>
+          </div>
+          <p class="validatorMessage">Choose a target audience</p>
+        </div>
+        <div class="block container genres">
+          <label class="block-label">Genres</label>
+          <div class="genreholder">
+            <div class="genreoption_block">
+              <input type="checkbox" class="big-radio" id="pop" name="genre" value="pop">
+              <label class="inline-label" for="pop">Pop</label><br>
+            </div>
+            <div class="genreoption_block border-left border-right">
+              <input type="checkbox" class="big-radio" id="folk" name="genre" value="folk">
+              <label class="inline-label" for="folk">Folk</label><br>
+            </div>
+            <div class="genreoption_block border-right">
+              <input type="checkbox" class="big-radio" id="blues" name="genre" value="blues">
+              <label class="inline-label" for="blues">Blues</label><br>
+            </div>
+            <div class="genreoption_block">
+              <input type="checkbox" class="big-radio" id="disco" name="genre" value="disco">
+              <label class="inline-label" for="disco">Disco</label><br>
+            </div>
+          </div>
+          <div class="validatorMessageSpace">
+            <p class="validatorMessage">Choose atleast one genre</p>
+          </div>
+        </div>
+        <div class="footer">
+          <button onclick="addtoTable()" class="submit">Add</button>
+        </div>
+      </form>
+    </div>
+    <div class="tablearea">
+      <div class="container themePickerContainer">
+        <select class="themePickerTool" name="theme" id="themePickerTool" onchange="changeTheme(this.value)">
+          <option value="vivid">Vivid</option>
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
+      </div>
+      <h1 class="header">THE TABLE</h1>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="column tablehead albumname">Album Name</th>
+            <th class="column tablehead albumprice">Price ($)</th>
+            <th class="column tablehead albumdesc">Description</th>
+            <th class="column tablehead albumtargetaud">Target Audience</th>
+            <th class="column tablehead albumgenres">Genres</th>
+            <th class="column tablehead albumreldate">Release Date</th>
+            <th class="column tablehead albumchanges">Make Changes</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <script type="text/javascript" src="../js/controlscript.js"></script>
+  </body>
 </html>
