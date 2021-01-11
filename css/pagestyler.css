@@ -291,8 +291,7 @@ textarea#desc:focus {
 }
 
 
-.validatormessage
- {
+.validatormessage {
   margin: 0%;
   text-align: center;
   color: #ff5e00;
@@ -304,36 +303,29 @@ textarea#desc:focus {
 
 /*Validator message themes*/
 
-.validatormessage
--vivid {
+.validatormessage-vivid {
   color: #ff5e00;
 }
 
 
-.validatormessage
--blue {
+.validatormessage-blue {
   color: #7fa9a5;
 }
 
 
-.validatormessage
--white {
+.validatormessage-white {
   color: #464646;
 }
 
 
-.albumdescription .validatormessage
-,
-.albumreleasedate .validatormessage
- {
+.albumdescription .validatormessage,
+.albumreleasedate .validatormessage {
   width: 81.5%;
 }
 
 
-.genres .validatormessage
-,
-.targetaud .validatormessage
-,
+.genres .validatormessage,
+.targetaud .validatormessage,
 {
   width: 100%;
 }
@@ -550,12 +542,9 @@ textarea#desc:focus {
 .inputbox-vivid,
 .inputbox-gray,
 .inputbox-white,
-.validatormessage
--vivid,
-.validatormessage
--blue,
-.validatormessage
--white,
+.validatormessage-vivid,
+.validatormessage-blue,
+.validatormessage-white,
 .submit-vivid,
 .submit-gray,
 .submit-white,
