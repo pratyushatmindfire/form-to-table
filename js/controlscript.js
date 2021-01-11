@@ -193,10 +193,10 @@ function validateAlbumName() {
   }
 
   if (flag === 0) {
-    document.querySelector('.albumnameblock .validatorMessage').style.display = 'none';
+    document.querySelector('.albumnameblock .validatormessage').style.display = 'none';
     return true
   } else {
-    document.querySelector('.albumnameblock .validatorMessage').style.display = 'block';
+    document.querySelector('.albumnameblock .validatormessage').style.display = 'block';
     return false
   }
 }
@@ -250,10 +250,10 @@ function validateAlbumPrice() {
   }
 
   if (flag === 0) {
-    document.querySelector('.priceblock .validatorMessage').style.display = 'none';
+    document.querySelector('.priceblock .validatormessage').style.display = 'none';
     return true
   } else {
-    document.querySelector('.priceblock .validatorMessage').style.display = 'block';
+    document.querySelector('.priceblock .validatormessage').style.display = 'block';
     return false
   }
 }
@@ -267,10 +267,10 @@ function validateAlbumDescription() {
   }
 
   if (flag === 0) {
-    document.querySelector('.albumdescription .validatorMessage').style.display = 'none';
+    document.querySelector('.albumdescription .validatormessage').style.display = 'none';
     return true
   } else {
-    document.querySelector('.albumdescription .validatorMessage').style.display = 'block';
+    document.querySelector('.albumdescription .validatormessage').style.display = 'block';
     return false
   }
 }
@@ -284,10 +284,10 @@ function validateDate() {
   }
 
   if (flag === 0) {
-    document.querySelector('.albumreleasedate .validatorMessage').style.display = 'none';
+    document.querySelector('.albumreleasedate .validatormessage').style.display = 'none';
     return true;
   } else {
-    document.querySelector('.albumreleasedate .validatorMessage').style.display = 'block';
+    document.querySelector('.albumreleasedate .validatormessage').style.display = 'block';
 
   }
   return false;
@@ -304,10 +304,10 @@ function validateTargetAudience() {
   }
 
   if (flag === 0) {
-    document.querySelector('.targetaud .validatorMessage').style.display = 'none';
+    document.querySelector('.targetaud .validatormessage').style.display = 'none';
     return true
   } else {
-    document.querySelector('.targetaud .validatorMessage').style.display = 'block';
+    document.querySelector('.targetaud .validatormessage').style.display = 'block';
     return false
   }
 }
@@ -323,10 +323,10 @@ function validateGenres() {
   }
 
   if (flag === 0) {
-    document.querySelector('.genres .validatorMessage').style.display = 'none';
+    document.querySelector('.genres .validatormessage').style.display = 'none';
     return true
   } else {
-    document.querySelector('.genres .validatorMessage').style.display = 'block';
+    document.querySelector('.genres .validatormessage').style.display = 'block';
     return false
   }
 }
@@ -478,7 +478,7 @@ function changeTheme(color) {
   var submitbutton = document.getElementsByClassName('submit')[0];
 
   //Fetch validation messages
-  var validationmessages = document.getElementsByClassName('validatorMessage');
+  var validationmessages = document.getElementsByClassName('validatormessage');
 
   //Fetch table cells
   var tablecells = document.getElementsByClassName('column');
@@ -499,8 +499,8 @@ function changeTheme(color) {
 
     //Change validation messages colors
     for (var each of validationmessages) {
-      each.classList.remove('validatorMessage-white', 'validatorMessage-blue');
-      each.classList.add('validatorMessage-vivid');
+      each.classList.remove('validatormessage-white', 'validatormessage-blue');
+      each.classList.add('validatormessage-vivid');
     }
 
     //Change table cell colors
@@ -536,8 +536,8 @@ function changeTheme(color) {
 
     //Change validation messages colors
     for (var each of validationmessages) {
-      each.classList.remove('validatorMessage-white', 'validatorMessage-vivid');
-      each.classList.add('validatorMessage-blue');
+      each.classList.remove('validatormessage-white', 'validatormessage-vivid');
+      each.classList.add('validatormessage-blue');
     }
 
     //Change table cell colors
@@ -581,8 +581,8 @@ function changeTheme(color) {
 
     //Change validation messages colors
     for (var each of validationmessages) {
-      each.classList.remove('validatorMessage-vivid', 'validatorMessage-blue');
-      each.classList.add('validatorMessage-white');
+      each.classList.remove('validatormessage-vivid', 'validatormessage-blue');
+      each.classList.add('validatormessage-white');
     }
 
     //Change table cell colors

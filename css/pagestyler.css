@@ -10,7 +10,7 @@ body {
   font-size: 1.6em;
 }
 
-.themePickerContainer {
+.themepickercontainer {
   text-align: right;
 }
 
@@ -24,8 +24,8 @@ body {
   font-weight: 600;
   margin-top: 8%;
   margin-bottom: 8%;
-  word-spacing: 0.2em;
-  letter-spacing: 0.2em;
+  word-spacing: .2em;
+  letter-spacing: .2em;
   font-size: 4em;
 }
 
@@ -42,8 +42,8 @@ body {
   font-weight: 600;
   margin-top: 8%;
   margin-bottom: 8%;
-  word-spacing: 0.2em;
-  letter-spacing: 0.2em;
+  word-spacing: .2em;
+  letter-spacing: .2em;
   font-size: 4em;
   color: black;
 }
@@ -54,8 +54,8 @@ body {
   font-weight: 600;
   margin-top: 8%;
   margin-bottom: 8%;
-  word-spacing: 0.2em;
-  letter-spacing: 0.2em;
+  word-spacing: .2em;
+  letter-spacing: .2em;
   font-size: 4em;
   color: white;
 }
@@ -103,7 +103,7 @@ body {
 }
 
 .tablearea-black {
-  background-color: #000000;
+  background-color: #000;
 }
 
 .tablearea-white {
@@ -115,7 +115,7 @@ body {
   font-family: system-ui;
   font-weight: 700;
   font-size: larger;
-  letter-spacing: 0.2em;
+  letter-spacing: .2em;
   text-transform: uppercase;
   text-align: center;
 }
@@ -181,17 +181,17 @@ body {
   width: 81.5%;
 }
 
-.validatorMessageSpace {
+.validator-message-space {
   height: 1.7vh;
 }
 
 .input-box {
   margin-top: 1%;
   background-color: #251d4a;
-  border: none;
+  border: 0;
   font-size: 1.4em;
   padding-left: 1%;
-  letter-spacing: 0.2em;
+  letter-spacing: .2em;
   text-align: center;
   border-radius: 26px;
   color: wheat;
@@ -212,12 +212,12 @@ input#price {
 
 input#releasedate {
   height: 3em;
-  margin-bottom: 0.8%;
+  margin-bottom: .8%;
   width: 81.5%;
 }
 
 textarea#desc {
-  margin-bottom: 0.8%;
+  margin-bottom: .8%;
   width: 81.5%;
   min-width: 81.5%;
   max-width: 81.5%;
@@ -248,10 +248,10 @@ textarea#desc {
 input#name:focus,
 input#price:focus,
 textarea#desc:focus {
-  outline: none;
+  outline: 0;
 }
 
-.validatorMessage {
+.validatormessage {
   margin: 0%;
   text-align: center;
   color: #ff5e00;
@@ -263,25 +263,25 @@ textarea#desc:focus {
 
 /*Validator message themes*/
 
-.validatorMessage-vivid {
+.validatormessage-vivid {
   color: #ff5e00;
 }
 
-.validatorMessage-blue {
+.validatormessage-blue {
   color: #7fa9a5;
 }
 
-.validatorMessage-white {
+.validatormessage-white {
   color: #464646;
 }
 
-.albumdescription .validatorMessage,
-.albumreleasedate .validatorMessage {
+.albumdescription .validatormessage,
+.albumreleasedate .validatormessage {
   width: 81.5%;
 }
 
-.genres .validatorMessage,
-.targetaud .validatorMessage,
+.genres .validatormessage,
+.targetaud .validatormessage,
 {
   width: 100%;
 }
@@ -291,7 +291,7 @@ textarea#desc:focus {
   display: flex;
   justify-content: center;
   margin-top: 1%;
-  margin-bottom: 0.8%;
+  margin-bottom: .8%;
 }
 
 .audienceoption_block,
@@ -323,21 +323,21 @@ textarea#desc:focus {
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  user-select: none;
+  user-select: 0;
   border: 1px solid transparent;
   padding: .375rem .75rem;
   font-size: 1.5rem;
   line-height: 1.5;
-  border-radius: 0.8rem;
+  border-radius: .8rem;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  background-color: #000000;
+  background-color: #000;
   color: #f2cf8d;
-  letter-spacing: 0.1em;
+  letter-spacing: .1em;
   border: 1px solid wheat;
 }
 
 .submit:focus {
-  outline: none;
+  outline: 0;
 }
 
 .submit:hover {
@@ -348,7 +348,7 @@ textarea#desc:focus {
 /*Submit button themes*/
 
 .submit-vivid {
-  background-color: #000000;
+  background-color: #000;
   color: #f2cf8d;
 }
 
@@ -359,7 +359,7 @@ textarea#desc:focus {
 
 .submit-white {
   border: 1px solid #575757;
-  color: #000000;
+  color: #000;
   background-color: #e1e1e1;
   box-shadow: 0px 0px 7px 0px #5f5f5f;
 }
@@ -383,9 +383,9 @@ textarea#desc:focus {
   font-family: system-ui;
   font-weight: 700;
   font-size: larger;
-  letter-spacing: 0.2em;
+  letter-spacing: .2em;
   padding: 1%;
-  border: none;
+  border: 0;
   background-color: #4f2f3e;
   color: #ffadad;
 }
@@ -409,13 +409,13 @@ textarea#desc:focus {
 }
 
 .column-white {
-  background-color: #333333;
-  color: #ffffff;
+  background-color: #333;
+  color: #fff;
 }
 
 .column-white-alternate {
-  background-color: #222222;
-  color: #ffffff;
+  background-color: #222;
+  color: #fff;
 }
 
 .albumname {
@@ -461,7 +461,7 @@ textarea#desc:focus {
 }
 
 .header-vivid,
-header-black,
+.header-black,
 .header-white,
 .formarea-vivid,
 .formarea-gray,
@@ -472,9 +472,9 @@ header-black,
 .inputbox-vivid,
 .inputbox-gray,
 .inputbox-white,
-.validatorMessage-vivid,
-.validatorMessage-blue,
-.validatorMessage-white,
+.validatormessage-vivid,
+.validatormessage-blue,
+.validatormessage-white,
 .submit-vivid,
 .submit-gray,
 .submit-white,
