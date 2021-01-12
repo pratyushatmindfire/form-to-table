@@ -1,12 +1,50 @@
 console.log("JS Connected!")
-var rowIdtoEdit = -1;
-var currentTheme = '';
+// var rowIdtoEdit = -1;
+// var currentTheme = '';
 let seedData = '[{"s_albumname":"Evermore","s_albumprice":"1.22","s_albumdesc":"A never ending prose of love and life","s_albumaudience":"Teens","s_albumgenres":"Folk Blues","s_albumdate":"2020-12-20"},{"s_albumname":"Folklore","s_albumprice":"2.99","s_albumdesc":"Demystifying the young age of a 90s american girl","s_albumaudience":"Seniors","s_albumgenres":"Folk","s_albumdate":"2020-11-27"},{"s_albumname":"Reputation","s_albumprice":"4.00","s_albumdesc":"A tale of the snakes that try to get a little bite behind the spotlights","s_albumaudience":"Teens","s_albumgenres":"Pop","s_albumdate":"2019-11-24"},{"s_albumname":"1989","s_albumprice":"3.40","s_albumdesc":"Young, free, and colorful life of a teenagers as they grow","s_albumaudience":"Teens","s_albumgenres":"Pop Disco","s_albumdate":"2017-06-07"},{"s_albumname":"Red","s_albumprice":"1.40","s_albumdesc":"Country side feels, old cardigan, and wind in head","s_albumaudience":"Teens","s_albumgenres":"Pop Blues Disco","s_albumdate":"2016-05-20"}]';
-localStorage.setItem('tableStorage', seedData);
+// setLocalStorageArray(seedData);
+function onPageLoad()
+{
+  setLocalStorageArray(seedData);
+  seedFrontEnd(getLocalStorageArray());
+}
 
-let renderData = JSON.parse(localStorage.getItem('tableStorage'));
-seedFrontEnd(renderData);
-changeTheme('vivid');
+var pageData = (function(){
+  var rowIdtoEdit = -1;
+  var currentTheme = '';
+
+  onPageLoad();
+  setcurrentTheme('vivid');
+
+  function setrowIdtoEdit(value)
+  {
+    rowIdtoEdit=value;
+  }
+
+  function getrowIdtoEdit()
+  {
+    return rowIdtoEdit;
+  }
+
+  function setcurrentTheme(value)
+  {
+    currentTheme=value;
+  }
+
+  function getcurrentTheme()
+  {
+    return currentTheme;
+  }
+
+  return {
+    setrowIdtoEdit: setrowIdtoEdit,
+    getrowIdtoEdit: getrowIdtoEdit,
+    setcurrentTheme: setcurrentTheme,
+    getcurrentTheme: getcurrentTheme
+  }
+
+
+})();
 
 
 function seedFrontEnd(inputData) {
@@ -27,14 +65,14 @@ function addtoTable() {
 
   event.preventDefault();
 
-  var writeMode = document.getElementsByClassName('submit')[0].innerText;
+  var writeMode = getWriteMode();
 
   //Fetch reference to DOM Nodes
   var albumname = document.getElementById('name').value.trim();
   var albumprice = document.getElementById('price').value.trim();
   var albumdesc = document.getElementById('desc').value.trim();
   var albumreleasedate = document.getElementById('releasedate').value;
-  var targetAudienceNodeList = document.getElementsByName('targetAudience');
+  var targetAudienceNodeList = document.getElementsByName('targetaudience');
   var albumgenreNodeList = document.getElementsByName('genre');
 
   var targetAudience = [];
@@ -68,15 +106,15 @@ function addtoTable() {
     if (writeMode === 'Add') {
       writeToStorage(albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate);
     } else {
-      updateStorage(rowIdtoEdit, albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate)
-      rowIdtoEdit = -1;
-      document.getElementsByClassName('submit')[0].innerText = "Add";
+      updateStorage(pageData.getrowIdtoEdit(), albumname, albumprice, albumdesc, targetAudience, albumgenres, albumreleasedate)
+      pageData.setrowIdtoEdit(-1);
+      setWriteMode("Add");
     }
 
 
     //Clear form input fields
-    clearDOM();
-    changeTheme(currentTheme);
+    clearForm();
+    pageData.setcurrentTheme(pageData.getcurrentTheme);
   } else {}
 }
 
@@ -118,7 +156,7 @@ function appendchildtoTable(name, price, desc, audience, genres, date) {
   cell7.innerHTML = '<label onclick="sendDataToForm(' + (rowcount + 1) + ')">Edit</label><br><label onclick="deleteFromStorage(' + (rowcount + 1) + ')">Delete</label';
 }
 
-function clearDOM() {
+function clearForm() {
   document.getElementById('name').value = "";
   document.getElementById('price').value = "";
   document.getElementById('desc').value = "";
@@ -129,7 +167,7 @@ function clearDOM() {
     each.checked = false;
   }
 
-  for (var each of document.getElementsByName('targetAudience')) {
+  for (var each of document.getElementsByName('targetaudience')) {
     each.checked = false;
   }
 }
@@ -140,7 +178,7 @@ function capitalize(word) {
 }
 
 function writeToStorage(name, price, desc, audience, genres, date) {
-  var currentArray = JSON.parse(localStorage.getItem('tableStorage'));
+  var currentArray = getLocalStorageArray()
   var objectToAdd = {
     s_albumname: name,
     s_albumprice: price,
@@ -150,12 +188,12 @@ function writeToStorage(name, price, desc, audience, genres, date) {
     s_albumdate: date
   }
   currentArray.push(objectToAdd);
-  localStorage.setItem('tableStorage', JSON.stringify(currentArray));
+  setLocalStorageArray(JSON.stringify(currentArray));
   appendchildtoTable(name, price, desc, audience, genres, date);
 }
 
 function updateStorage(index, name, price, desc, audience, genres, date) {
-  var currentArray = JSON.parse(localStorage.getItem('tableStorage'));
+  var currentArray = getLocalStorageArray()
   var editedObject = {
     s_albumname: name,
     s_albumprice: price,
@@ -178,7 +216,7 @@ function updateStorage(index, name, price, desc, audience, genres, date) {
 
 
   currentArray[indexToReplace] = editedObject;
-  localStorage.setItem('tableStorage', JSON.stringify(currentArray));
+  setLocalStorageArray(JSON.stringify(currentArray));
   updateTableRow(index, name, price, desc, audience, genres, date);
 }
 
@@ -295,7 +333,7 @@ function validateDate() {
 
 function validateTargetAudience() {
   var flag = 1;
-  var radiosNodeList = document.getElementsByName('targetAudience');
+  var radiosNodeList = document.getElementsByName('targetaudience');
 
   for (var each of radiosNodeList) {
     if (each.checked === true) {
@@ -363,56 +401,57 @@ function submitDecision() {
 
 
 function sendDataToForm(index) {
-  //Old way via DOM
+
   var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + index)[0];
   var ObjectFinder_Name = fetchedRow.getElementsByTagName('td')[0].innerText;
 
-  // document.getElementById('price').value=fetchedRow.getElementsByTagName('td')[1].innerText;
-  // document.getElementById('desc').value=fetchedRow.getElementsByTagName('td')[2].innerText;
-  // document.getElementById('releasedate').value=fetchedRow.getElementsByTagName('td')[5].innerText;
-
-  // document.getElementsByClassName('submit')[0].innerText="Update";
-
-  // for (var each of document.getElementsByName('targetAudience'))
-  // {
-  // 	each.checked=capitalize(each.value)===fetchedRow.getElementsByTagName('td')[3].innerText
-  // }
-
-  // for (var each of document.getElementsByName('genre'))
-  // {
-  // 	options=fetchedRow.getElementsByTagName('td')[4].innerText.toString();
-  // 	options=options.split(' ').join(',').split('\n').join(',').split(',')
-  // 	each.checked=options.includes(capitalize(each.value))
-  // }
-
-
   //New way via localstorage
-  var currentArray = JSON.parse(localStorage.getItem('tableStorage'));
+  var currentArray = getLocalStorageArray()
   var objectToSendToForm = currentArray.filter(e => {
     if (e != null) {
       return e.s_albumname === ObjectFinder_Name;
     }
   })[0];
 
-  document.getElementById('name').value = objectToSendToForm.s_albumname;
-  document.getElementById('price').value = objectToSendToForm.s_albumprice;
-  document.getElementById('desc').value = objectToSendToForm.s_albumdesc;
-  document.getElementById('releasedate').value = objectToSendToForm.s_albumdate;
+  var fetchedformFields=document.getElementsByClassName('loop-track');
 
-  for (var each of document.getElementsByName('targetAudience')) {
-    each.checked = capitalize(each.value) === objectToSendToForm.s_albumaudience
+  for(let eachField of fetchedformFields)
+  {
+    if(eachField.name==="albumname")
+    {
+      eachField.value=objectToSendToForm.s_albumname;
+    }
+
+    else if(eachField.name==="albumprice")
+    {
+      eachField.value=objectToSendToForm.s_albumprice;
+    }
+
+    else if(eachField.name==="albumdesc")
+    {
+      eachField.value=objectToSendToForm.s_albumdesc;
+    }
+
+    else if(eachField.name==="releasedate")
+    {
+      eachField.value=objectToSendToForm.s_albumdate;
+    }
+
+    else if(eachField.name==="targetaudience")
+    {
+      eachField.checked= capitalize(eachField.value) === objectToSendToForm.s_albumaudience;
+    }
+
+    else if(eachField.name==="genre")
+    {
+      genreOptions = objectToSendToForm.s_albumgenres;
+      genreOptions = genreOptions.split(' ').join(',').split('\n').join(',').split(',')
+      eachField.checked=genreOptions.includes(capitalize(eachField.value));
+    }
   }
 
-  genreOptions = objectToSendToForm.s_albumgenres;
-  genreOptions = genreOptions.split(' ').join(',').split('\n').join(',').split(',')
-
-  for (var each of document.getElementsByName('genre')) {
-    each.checked = genreOptions.includes(capitalize(each.value))
-  }
-
-
-  document.getElementsByClassName('submit')[0].innerText = "Update";
-  rowIdtoEdit = index;
+  setWriteMode("Update");
+  pageData.setrowIdtoEdit(index);
 
 
   setTimeout(() => {
@@ -427,12 +466,12 @@ function sendDataToForm(index) {
 
 function updateTableRow(id, name, price, desc, audience, genres, date) {
   var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + id)[0];
-  fetchedRow.getElementsByTagName('td')[0].innerText = name;
-  fetchedRow.getElementsByTagName('td')[1].innerText = price;
-  fetchedRow.getElementsByTagName('td')[2].innerText = desc;
-  fetchedRow.getElementsByTagName('td')[5].innerText = date;
-  fetchedRow.getElementsByTagName('td')[3].innerText = audience;
-  fetchedRow.getElementsByTagName('td')[4].innerText = genres;
+  var cells=fetchedRow.getElementsByTagName('td');
+
+  for(let i=1; i<arguments.length; i++)
+  {
+    cells[i-1].innerText=arguments[i];
+  }
 }
 
 function deleteFromStorage(index) {
@@ -440,14 +479,14 @@ function deleteFromStorage(index) {
   var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + index)[0];
   var ObjectFinder_Name = fetchedRow.getElementsByTagName('td')[0].innerText;
 
-  if (index == rowIdtoEdit) {
-    document.getElementsByClassName('submit')[0].innerText = 'Add';
+  if (index == pageData.getrowIdtoEdit()) {
+    setWriteMode("Add");
   }
 
-  var currentArray = JSON.parse(localStorage.getItem('tableStorage'));
+  var currentArray = getLocalStorageArray()
   var objectToDelete = currentArray.filter(e => e.s_albumname === ObjectFinder_Name)[0];
   currentArray = currentArray.filter(each => each !== objectToDelete);
-  localStorage.setItem('tableStorage', JSON.stringify(currentArray));
+  setLocalStorageArray(JSON.stringify(currentArray));
 
   deletefromFrontend(index);
 }
@@ -455,14 +494,14 @@ function deleteFromStorage(index) {
 function deletefromFrontend(id) {
   var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + id)[0];
   fetchedRow.remove();
-  changeTheme(currentTheme);
+  pageData.setcurrentTheme(pageData.getcurrentTheme);
 }
 
 
 //Theme function
 function changeTheme(color) {
   //Set the global variable current theme
-  currentTheme = color;
+  pageData.setcurrentTheme(color);
 
   //Fetch headers
   var allHeaders = document.getElementsByClassName('header');
@@ -612,4 +651,26 @@ function changeTheme(color) {
     tableareaspace.classList.remove('tablearea-black', 'tablearea-vivid');
     tableareaspace.classList.add('tablearea-white');
   }
+}
+
+
+//Some getters and setters
+function setWriteMode(mode)
+{
+  document.getElementsByClassName('submit')[0].innerText = mode;
+}
+
+function getWriteMode()
+{
+  return document.getElementsByClassName('submit')[0].innerText;
+}
+
+function getLocalStorageArray()
+{
+  return JSON.parse(localStorage.getItem('tableStorage'));
+}
+
+function setLocalStorageArray(newData)
+{
+   localStorage.setItem('tableStorage', newData);
 }

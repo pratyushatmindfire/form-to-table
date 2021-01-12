@@ -12,7 +12,7 @@
         <div class="block container albumnameblock">
           <div class="block-core-div">
             <label class="block-label" for="name">Album Name</label>
-            <input class="input-box" autocomplete="off" onblur="validateAlbumName()" type="text" id="name">
+            <input class="input-box loop-track" name="albumname" autocomplete="off" onblur="validateAlbumName()" type="text" id="name">
             <div class="validator-message-space">
               <p class="validatormessage">Invalid album name
             </div>
@@ -21,7 +21,7 @@
         <div class="block container priceblock">
           <div class="block-core-div">
             <label class="block-label" for="price">Price ($)</label>
-            <input class="input-box" onblur="validateAlbumPrice()" type="text" id="price">
+            <input class="input-box loop-track" name="albumprice" onblur="validateAlbumPrice()" type="text" id="price">
             <div class="validator-message-space">
               <p class="validatormessage">Invalid price value
             </div>
@@ -30,7 +30,7 @@
         <div class="block container albumdescription">
           <div class="block-core-div">
             <label class="block-label" for="desc">Description</label>
-            <textarea class="input-box" onblur="validateAlbumDescription()" id="desc"></textarea>
+            <textarea class="input-box loop-track" name="albumdesc" onblur="validateAlbumDescription()" id="desc"></textarea>
             <div class="validator-message-space">
               <p class="validatormessage">Description cannot be empty
             </div>
@@ -39,7 +39,7 @@
         <div class="block container albumreleasedate">
           <div class="block-core-div">
             <label class="block-label" for="date">Release Date</label>
-            <input class="input-box" onblur="validateDate()" type="date" id="releasedate" name="releaseDate">
+            <input class="input-box loop-track" onblur="validateDate()" type="date" id="releasedate" name="releasedate">
             <div class="validator-message-space">
               <p class="validatormessage">Release date is mandatory
             </div>
@@ -49,15 +49,15 @@
           <label class="block-label">Target Audience</label>
           <div class="audienceoptionsholder">
             <div class="audienceoption_block">
-              <input type="radio" class="big-radio" id="teens" name="targetAudience" value="teens">
+              <input type="radio" class="big-radio loop-track" id="teens" name="targetaudience" value="teens">
               <label class="inline-label" for="teens">Teens</label><br>
             </div>
             <div class="audienceoption_block">
-              <input type="radio" class="big-radio" id="millenials" name="targetAudience" value="millenials">
+              <input type="radio" class="big-radio loop-track" id="millenials" name="targetaudience" value="millenials">
               <label class="inline-label" for="millenials">Millenials</label><br>
             </div>
             <div class="audienceoption_block">
-              <input type="radio" class="big-radio" id="seniors" name="targetAudience" value="seniors">
+              <input type="radio" class="big-radio loop-track" id="seniors" name="targetaudience" value="seniors">
               <label class="inline-label" for="seniors">Seniors</label>
             </div>
           </div>
@@ -67,19 +67,19 @@
           <label class="block-label">Genres</label>
           <div class="genreholder">
             <div class="genreoption_block">
-              <input type="checkbox" class="big-radio" id="pop" name="genre" value="pop">
+              <input type="checkbox" class="big-radio loop-track" id="pop" name="genre" value="pop">
               <label class="inline-label" for="pop">Pop</label><br>
             </div>
             <div class="genreoption_block border-left border-right">
-              <input type="checkbox" class="big-radio" id="folk" name="genre" value="folk">
+              <input type="checkbox" class="big-radio loop-track" id="folk" name="genre" value="folk">
               <label class="inline-label" for="folk">Folk</label><br>
             </div>
             <div class="genreoption_block border-right">
-              <input type="checkbox" class="big-radio" id="blues" name="genre" value="blues">
+              <input type="checkbox" class="big-radio loop-track" id="blues" name="genre" value="blues">
               <label class="inline-label" for="blues">Blues</label><br>
             </div>
             <div class="genreoption_block">
-              <input type="checkbox" class="big-radio" id="disco" name="genre" value="disco">
+              <input type="checkbox" class="big-radio loop-track" id="disco" name="genre" value="disco">
               <label class="inline-label" for="disco">Disco</label><br>
             </div>
           </div>
