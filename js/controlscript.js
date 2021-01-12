@@ -1,14 +1,15 @@
-console.log("JS Connected!")
-// var rowIdtoEdit = -1;
-// var currentTheme = '';
 let seedData = '[{"s_albumname":"Evermore","s_albumprice":"1.22","s_albumdesc":"A never ending prose of love and life","s_albumaudience":"Teens","s_albumgenres":"Folk Blues","s_albumdate":"2020-12-20"},{"s_albumname":"Folklore","s_albumprice":"2.99","s_albumdesc":"Demystifying the young age of a 90s american girl","s_albumaudience":"Seniors","s_albumgenres":"Folk","s_albumdate":"2020-11-27"},{"s_albumname":"Reputation","s_albumprice":"4.00","s_albumdesc":"A tale of the snakes that try to get a little bite behind the spotlights","s_albumaudience":"Teens","s_albumgenres":"Pop","s_albumdate":"2019-11-24"},{"s_albumname":"1989","s_albumprice":"3.40","s_albumdesc":"Young, free, and colorful life of a teenagers as they grow","s_albumaudience":"Teens","s_albumgenres":"Pop Disco","s_albumdate":"2017-06-07"},{"s_albumname":"Red","s_albumprice":"1.40","s_albumdesc":"Country side feels, old cardigan, and wind in head","s_albumaudience":"Teens","s_albumgenres":"Pop Blues Disco","s_albumdate":"2016-05-20"}]';
-// setLocalStorageArray(seedData);
+
+
+//Function that executes when page loads, seeds default data in local storage, and seeds the frontend table
 function onPageLoad()
 {
   setLocalStorageArray(seedData);
   seedFrontEnd(getLocalStorageArray());
 }
 
+//Reveal pattern module to restrict direct access to state variables
+//Self executing anonymous function
 var pageData = (function(){
   var rowIdtoEdit = -1;
   var currentTheme = '';
@@ -16,37 +17,55 @@ var pageData = (function(){
   onPageLoad();
   setcurrentTheme('vivid');
 
+  //Sets the row id to edit
+  //Input - An integer 'value', which is the row id that is currently being edited
   function setrowIdtoEdit(value)
   {
     rowIdtoEdit=value;
   }
 
+  //Returns the row id that is currently being edited
+  //Output - row id that is currently being edited
   function getrowIdtoEdit()
   {
     return rowIdtoEdit;
   }
 
+  //Sets current theme
+  //Input - A string 'value', whic is the theme that has to be set
   function setcurrentTheme(value)
   {
     currentTheme=value;
   }
 
+  //Gets current theme
+  //Output - A string, which is the current theme
   function getcurrentTheme()
   {
     return currentTheme;
   }
 
+  //Fetches a row of the table based on its class name, which is inturn determined by index
+  //Input - An integer 'index', which is the index of the row to edit and is used to identify the content of row by classname
+  //Output - A DOM reference, which is the row identified via 'index' argument
+  function fetchTableRowByIndex(index)
+  {
+    return document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + index)[0];
+  }
+
+  //Returns an object with references to getters and setters, hence restricting direct access to state variables
   return {
     setrowIdtoEdit: setrowIdtoEdit,
     getrowIdtoEdit: getrowIdtoEdit,
     setcurrentTheme: setcurrentTheme,
-    getcurrentTheme: getcurrentTheme
+    getcurrentTheme: getcurrentTheme,
+    fetchTableRowByIndex: fetchTableRowByIndex
   }
-
-
 })();
 
 
+//Seeds default data to frontend table
+//Input - An array 'inputData', which is the array of records to be seeded
 function seedFrontEnd(inputData) {
   for (var each of inputData) {
     let {
@@ -61,6 +80,7 @@ function seedFrontEnd(inputData) {
   }
 }
 
+//Function that triggers on a submit or update action, and makes changes to the table
 function addtoTable() {
 
   event.preventDefault();
@@ -118,6 +138,16 @@ function addtoTable() {
   } else {}
 }
 
+
+//Appends a new row to the end of the table
+/*Input: 
+        A string 'name', which is the album's name
+        A string 'price', which is the album's price
+        A string 'desc', which is the album's description
+        A string 'audience', which is the album's target audience
+        A string 'genres', which is the string of newline separates genres that the album falls into
+        A string 'date', which is the album's release date in yyyy-mm-dd format
+*/
 function appendchildtoTable(name, price, desc, audience, genres, date) {
   var tableReference = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0];
   var rows = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr');
@@ -127,7 +157,6 @@ function appendchildtoTable(name, price, desc, audience, genres, date) {
     rowcount = parseInt([].slice.call(rows).pop().classList[0].replace(/\D/g, ''));
   }
 
-  // var rowcount=document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr').length;
   var row = tableReference.insertRow(-1);
   row.classList.add("row_" + (rowcount + 1));
 
@@ -156,6 +185,7 @@ function appendchildtoTable(name, price, desc, audience, genres, date) {
   cell7.innerHTML = '<label onclick="sendDataToForm(' + (rowcount + 1) + ')">Edit</label><br><label onclick="deleteFromStorage(' + (rowcount + 1) + ')">Delete</label';
 }
 
+//Clears the form input fields after a successful add or update record action
 function clearForm() {
   document.getElementById('name').value = "";
   document.getElementById('price').value = "";
@@ -172,11 +202,23 @@ function clearForm() {
   }
 }
 
+//Capitalizes a lowercase string to Title Case
+//Input - A string 'word', which is the word to capitalize
+//Output - A string, which is the Title Case capitalized word
 function capitalize(word) {
   const lower = word.toLowerCase();
   return word.charAt(0).toUpperCase() + lower.slice(1);
 }
 
+//Pushes a new object to the array of records in localstorage
+/*Input: 
+        A string 'name', which is the album's name
+        A string 'price', which is the album's price
+        A string 'desc', which is the album's description
+        A string 'audience', which is the album's target audience
+        A string 'genres', which is the string of newline separates genres that the album falls into
+        A string 'date', which is the album's release date in yyyy-mm-dd format
+*/
 function writeToStorage(name, price, desc, audience, genres, date) {
   var currentArray = getLocalStorageArray()
   var objectToAdd = {
@@ -192,6 +234,16 @@ function writeToStorage(name, price, desc, audience, genres, date) {
   appendchildtoTable(name, price, desc, audience, genres, date);
 }
 
+//Updates a specific index of the array of objects in localstorage
+/*Input: 
+        An integer 'index', which is the index of the row to edit and is used to identify the content of row by classname
+        A string 'name', which is the album's new name
+        A string 'price', which is the album's new price
+        A string 'desc', which is the album's new description
+        A string 'audience', which is the album's new target audience
+        A string 'genres', which is the new string of genres that the album falls into
+        A string 'date', which is the album's new release date in yyyy-mm-dd format
+*/
 function updateStorage(index, name, price, desc, audience, genres, date) {
   var currentArray = getLocalStorageArray()
   var editedObject = {
@@ -203,7 +255,7 @@ function updateStorage(index, name, price, desc, audience, genres, date) {
     s_albumdate: date
   };
 
-  var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + index)[0];
+  var fetchedRow = pageData.fetchTableRowByIndex(index);
   var fetchedOriginalName = fetchedRow.getElementsByClassName('albumname')[0].innerText;
   var indexToReplace = 0;
   for (var each of currentArray) {
@@ -221,16 +273,16 @@ function updateStorage(index, name, price, desc, audience, genres, date) {
 }
 
 
-// Raw JS Validators
-
+// Validates album name as per business logic
+// Output - A boolean, which implies true/false if album name is valid/invalid
 function validateAlbumName() {
   var albumname = document.getElementById('name').value.trim();
-  var flag = 0;
+  var isValid = 0;
   if (albumname.length === 0) {
-    flag = 1;
+    isValid = 1;
   }
 
-  if (flag === 0) {
+  if (isValid === 0) {
     document.querySelector('.albumnameblock .validatormessage').style.display = 'none';
     return true
   } else {
@@ -239,29 +291,32 @@ function validateAlbumName() {
   }
 }
 
+
+// Validates album price as per business logic
+// Output - A boolean, which implies true/false if album price is valid/invalid
 function validateAlbumPrice() {
-  var flag = 0;
+  var isValid = 0;
   var originalpriceval = document.getElementById('price').value.trim();
   price = originalpriceval.split('.')
 
   if (originalpriceval.trim().length == 0) {
-    flag = 1;
+    isValid = 1;
   }
 
   // Check for letters
   if (isNaN(originalpriceval)) {
-    flag = 1;
+    isValid = 1;
   }
 
 
   //Irregular inputs
   if (price.length < 1 || price.length > 2) {
-    flag = 1;
+    isValid = 1;
   }
 
   //Negative price
   if (price[0] < 0) {
-    flag = 1;
+    isValid = 1;
   }
 
   //No decimal input
@@ -284,10 +339,10 @@ function validateAlbumPrice() {
 
   //More than 2 decimal inpurs
   if (price[1] != undefined && !isNaN(originalpriceval) && price[1].length > 2) {
-    flag = 1;
+    isValid = 1;
   }
 
-  if (flag === 0) {
+  if (isValid === 0) {
     document.querySelector('.priceblock .validatormessage').style.display = 'none';
     return true
   } else {
@@ -296,15 +351,18 @@ function validateAlbumPrice() {
   }
 }
 
+
+// Validates album description as per business logic
+// Output - A boolean, which implies true/false if album description is valid/invalid
 function validateAlbumDescription() {
-  var flag = 0;
+  var isValid = 0;
   var desc = document.getElementById('desc').value;
 
   if (desc.length === 0) {
-    flag = 1;
+    isValid = 1;
   }
 
-  if (flag === 0) {
+  if (isValid === 0) {
     document.querySelector('.albumdescription .validatormessage').style.display = 'none';
     return true
   } else {
@@ -313,15 +371,17 @@ function validateAlbumDescription() {
   }
 }
 
+// Validates album release date as per business logic
+// Output - A boolean, which implies true/false if album release date is valid/invalid
 function validateDate() {
-  var flag = 0;
+  var isValid = 0;
   var relDate = document.getElementById('releasedate').value;
 
   if (relDate === "") {
-    flag = 1;
+    isValid = 1;
   }
 
-  if (flag === 0) {
+  if (isValid === 0) {
     document.querySelector('.albumreleasedate .validatormessage').style.display = 'none';
     return true;
   } else {
@@ -331,17 +391,20 @@ function validateDate() {
   return false;
 }
 
+
+// Validates album target audience as per business logic
+// Output - A boolean, which implies true/false if album target audience is valid/invalid
 function validateTargetAudience() {
-  var flag = 1;
+  var isValid = 1;
   var radiosNodeList = document.getElementsByName('targetaudience');
 
   for (var each of radiosNodeList) {
     if (each.checked === true) {
-      flag = 0;
+      isValid = 0;
     }
   }
 
-  if (flag === 0) {
+  if (isValid === 0) {
     document.querySelector('.targetaud .validatormessage').style.display = 'none';
     return true
   } else {
@@ -350,17 +413,19 @@ function validateTargetAudience() {
   }
 }
 
+// Validates album genres as per business logic
+// Output - A boolean, which implies true/false if album genres is valid/invalid
 function validateGenres() {
-  var flag = 1;
-  var checkboxNodeList = document.getElementsByName('genre');
+  var isValid = 1;
+  var genresNodeList = document.getElementsByName('genre');
 
-  for (var each of checkboxNodeList) {
+  for (var each of genresNodeList) {
     if (each.checked === true) {
-      flag = 0;
+      isValid = 0;
     }
   }
 
-  if (flag === 0) {
+  if (isValid === 0) {
     document.querySelector('.genres .validatormessage').style.display = 'none';
     return true
   } else {
@@ -369,6 +434,8 @@ function validateGenres() {
   }
 }
 
+//Implements all the validations upon calling it, and decides whether to submit the record
+//Output- A boolean, which implies true if the record should be submitted, false otherwise
 function submitDecision() {
   var decision = true;
 
@@ -399,10 +466,11 @@ function submitDecision() {
   return decision;
 }
 
-
+//Sends data from table to form by identifying the row's class name by help of index and fetching their inner texts
+//Input - An integer 'index', which is used for identifying the row's class name
 function sendDataToForm(index) {
 
-  var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + index)[0];
+  var fetchedRow = pageData.fetchTableRowByIndex(index);
   var ObjectFinder_Name = fetchedRow.getElementsByTagName('td')[0].innerText;
 
   //New way via localstorage
@@ -464,8 +532,18 @@ function sendDataToForm(index) {
   }, 1);
 }
 
-function updateTableRow(id, name, price, desc, audience, genres, date) {
-  var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + id)[0];
+//Updates the cells of a table row by identifying that row based on index
+/*Input: 
+        An integer 'index', which is the index of the row to update and is used to identify the content of row by classname
+        A string 'name', which is the album's new name
+        A string 'price', which is the album's new price
+        A string 'desc', which is the album's new description
+        A string 'audience', which is the album's new target audience
+        A string 'genres', which is the new string of genres that the album falls into
+        A string 'date', which is the album's new release date in yyyy-mm-dd format
+*/
+function updateTableRow(index, name, price, desc, audience, genres, date) {
+  var fetchedRow = pageData.fetchTableRowByIndex(index);
   var cells=fetchedRow.getElementsByTagName('td');
 
   for(let i=1; i<arguments.length; i++)
@@ -474,9 +552,11 @@ function updateTableRow(id, name, price, desc, audience, genres, date) {
   }
 }
 
+//Deletes an object from the array of objects in local storage based on an index
+//Input - An integer 'index', which is the index of the row to delete and is used to identify the content of row by classname
 function deleteFromStorage(index) {
 
-  var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + index)[0];
+  var fetchedRow = pageData.fetchTableRowByIndex(index);
   var ObjectFinder_Name = fetchedRow.getElementsByTagName('td')[0].innerText;
 
   if (index == pageData.getrowIdtoEdit()) {
@@ -491,14 +571,16 @@ function deleteFromStorage(index) {
   deletefromFrontend(index);
 }
 
-function deletefromFrontend(id) {
-  var fetchedRow = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + id)[0];
+//Deletes a row from front end table
+//Input - An integer 'index', which is the index of the row to delete and is used to identify the content of row by classname
+function deletefromFrontend(index) {
+  var fetchedRow = pageData.fetchTableRowByIndex(index);
   fetchedRow.remove();
   pageData.setcurrentTheme(pageData.getcurrentTheme);
 }
 
-
-//Theme function
+//Changes color scheme of the page
+//Input - A string 'color', which implies the color scheme that the theme has to be changed to
 function changeTheme(color) {
   //Set the global variable current theme
   pageData.setcurrentTheme(color);
@@ -653,23 +735,29 @@ function changeTheme(color) {
   }
 }
 
-
-//Some getters and setters
-function setWriteMode(mode)
-{
-  document.getElementsByClassName('submit')[0].innerText = mode;
-}
-
+//Getter function for write mode
+//Output - A string, which is the current write mode
 function getWriteMode()
 {
   return document.getElementsByClassName('submit')[0].innerText;
 }
 
+//Setter function for write mode
+//Input - A string 'mode', which will override the current write mode
+function setWriteMode(mode)
+{
+  document.getElementsByClassName('submit')[0].innerText = mode;
+}
+
+//Getter for local storage array
+//Output - Returns an array, which is the array of objects in local storage
 function getLocalStorageArray()
 {
   return JSON.parse(localStorage.getItem('tableStorage'));
 }
 
+//Setter function for write mode
+//Input - An array 'newData', which will override the current array of objects in local storage
 function setLocalStorageArray(newData)
 {
    localStorage.setItem('tableStorage', newData);
