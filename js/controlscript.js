@@ -50,7 +50,7 @@ var pageData = (function(){
   //Output - A DOM reference, which is the row identified via 'index' argument
   function fetchTableRowByIndex(index)
   {
-    return document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByClassName('row_' + index)[0];
+    return $('.row_'+index)[0];
   }
 
   //Returns an object with references to getters and setters, hence restricting direct access to state variables
@@ -88,12 +88,12 @@ function addtoTable() {
   var writeMode = getWriteMode();
 
   //Fetch reference to DOM Nodes
-  var albumname = document.getElementById('name').value.trim();
-  var albumprice = document.getElementById('price').value.trim();
-  var albumdesc = document.getElementById('desc').value.trim();
-  var albumreleasedate = document.getElementById('releasedate').value;
-  var targetAudienceNodeList = document.getElementsByName('targetaudience');
-  var albumgenreNodeList = document.getElementsByName('genre');
+  var albumname = $('#name')[0].value.trim();
+  var albumprice = $('#price')[0].value.trim();
+  var albumdesc = $('#desc')[0].value.trim();
+  var albumreleasedate = $('#releasedate')[0].value;
+  var targetAudienceNodeList = $("input[name='targetaudience']");
+  var albumgenreNodeList = $("input[name='genre']");
 
   var targetAudience = [];
   var albumgenres = [];
@@ -120,7 +120,7 @@ function addtoTable() {
 
   if (submitDecision()) {
     //Update price value as per validation
-    var albumprice = document.getElementById('price').value.trim();
+    var albumprice = $('#price')[0].value.trim();
 
     // Call the function to append new row to table
     if (writeMode === 'Add') {
@@ -149,8 +149,8 @@ function addtoTable() {
         A string 'date', which is the album's release date in yyyy-mm-dd format
 */
 function appendchildtoTable(name, price, desc, audience, genres, date) {
-  var tableReference = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0];
-  var rows = document.getElementsByClassName('data-table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+  var tableReference=$('.data-table tbody')[0];
+  var rows = $('.data-table tbody tr');
   if (rows.length === 0) {
     rowcount = 0;
   } else {
@@ -187,17 +187,17 @@ function appendchildtoTable(name, price, desc, audience, genres, date) {
 
 //Clears the form input fields after a successful add or update record action
 function clearForm() {
-  document.getElementById('name').value = "";
-  document.getElementById('price').value = "";
-  document.getElementById('desc').value = "";
-  document.getElementById('releasedate').value = "";
+  $('#name')[0].value = "";
+  $('#price')[0].value = "";
+  $('#desc')[0].value = "";
+  $('#releasedate')[0].value = "";
 
 
-  for (var each of document.getElementsByName('genre')) {
+  for (var each of $("input[name='genre']")) {
     each.checked = false;
   }
 
-  for (var each of document.getElementsByName('targetaudience')) {
+  for (var each of $("input[name='targetaudience']")) {
     each.checked = false;
   }
 }
@@ -255,8 +255,7 @@ function updateStorage(index, name, price, desc, audience, genres, date) {
     s_albumdate: date
   };
 
-  var fetchedRow = pageData.fetchTableRowByIndex(index);
-  var fetchedOriginalName = fetchedRow.getElementsByClassName('albumname')[0].innerText;
+  var fetchedOriginalName = $('.data-table tbody').find('.row_'+index+' .albumname')[0].innerText;
   var indexToReplace = 0;
   for (var each of currentArray) {
     if (each.s_albumname != fetchedOriginalName) {
@@ -276,17 +275,17 @@ function updateStorage(index, name, price, desc, audience, genres, date) {
 // Validates album name as per business logic
 // Output - A boolean, which implies true/false if album name is valid/invalid
 function validateAlbumName() {
-  var albumname = document.getElementById('name').value.trim();
+  var albumname = $('#name')[0].value.trim();
   var isValid = 0;
   if (albumname.length === 0) {
     isValid = 1;
   }
 
   if (isValid === 0) {
-    document.querySelector('.albumnameblock .validatormessage').style.display = 'none';
+    $('.albumnameblock .validatormessage')[0].style.display = 'none';
     return true
   } else {
-    document.querySelector('.albumnameblock .validatormessage').style.display = 'block';
+   $('.albumnameblock .validatormessage')[0].style.display = 'block';
     return false
   }
 }
@@ -296,7 +295,7 @@ function validateAlbumName() {
 // Output - A boolean, which implies true/false if album price is valid/invalid
 function validateAlbumPrice() {
   var isValid = 0;
-  var originalpriceval = document.getElementById('price').value.trim();
+  var originalpriceval = $('#price')[0].value.trim();
   price = originalpriceval.split('.')
 
   if (originalpriceval.trim().length == 0) {
@@ -322,19 +321,19 @@ function validateAlbumPrice() {
   //No decimal input
   if (price.length == 1 && !isNaN(originalpriceval) && price[0] != "") {
     //Manipulate dom to x.00
-    document.getElementById('price').value = (parseInt(price[0])).toFixed(2);
+    $('#price')[0].value = (parseInt(price[0])).toFixed(2);
   }
 
   // Null decimal input
   if (price.length == 2 && !isNaN(originalpriceval) && price[0] != "" && price[1] == "") {
     //Manipulate dom to x.00
-    document.getElementById('price').value = (parseInt(price[0])).toFixed(2);
+    $('#price')[0].value = (parseInt(price[0])).toFixed(2);
   }
 
   // One decimal input
   if (price.length == 2 && !isNaN(originalpriceval) && price[0] != "" && price[1] != "" && price[1].length == 1) {
     //Manipulate dom to x.00
-    document.getElementById('price').value = (parseInt(price[0]) + price[1] / 10).toFixed(2);
+    $('#price')[0].value = (parseInt(price[0]) + price[1] / 10).toFixed(2);
   }
 
   //More than 2 decimal inpurs
@@ -343,10 +342,10 @@ function validateAlbumPrice() {
   }
 
   if (isValid === 0) {
-    document.querySelector('.priceblock .validatormessage').style.display = 'none';
+    $('.priceblock .validatormessage')[0].style.display = 'none';
     return true
   } else {
-    document.querySelector('.priceblock .validatormessage').style.display = 'block';
+    $('.priceblock .validatormessage')[0].style.display = 'block';
     return false
   }
 }
@@ -356,17 +355,17 @@ function validateAlbumPrice() {
 // Output - A boolean, which implies true/false if album description is valid/invalid
 function validateAlbumDescription() {
   var isValid = 0;
-  var desc = document.getElementById('desc').value;
+  var desc = $('#desc')[0].value;
 
   if (desc.length === 0) {
     isValid = 1;
   }
 
   if (isValid === 0) {
-    document.querySelector('.albumdescription .validatormessage').style.display = 'none';
+    $('.albumdescription .validatormessage')[0].style.display = 'none';
     return true
   } else {
-    document.querySelector('.albumdescription .validatormessage').style.display = 'block';
+    $('.albumdescription .validatormessage')[0].style.display = 'block';
     return false
   }
 }
@@ -375,17 +374,17 @@ function validateAlbumDescription() {
 // Output - A boolean, which implies true/false if album release date is valid/invalid
 function validateDate() {
   var isValid = 0;
-  var relDate = document.getElementById('releasedate').value;
+  var relDate = $('#releasedate')[0].value;
 
   if (relDate === "") {
     isValid = 1;
   }
 
   if (isValid === 0) {
-    document.querySelector('.albumreleasedate .validatormessage').style.display = 'none';
+    $('.albumreleasedate .validatormessage')[0].style.display = 'none';
     return true;
   } else {
-    document.querySelector('.albumreleasedate .validatormessage').style.display = 'block';
+   $('.albumreleasedate .validatormessage')[0].style.display = 'block';
 
   }
   return false;
@@ -396,7 +395,7 @@ function validateDate() {
 // Output - A boolean, which implies true/false if album target audience is valid/invalid
 function validateTargetAudience() {
   var isValid = 1;
-  var radiosNodeList = document.getElementsByName('targetaudience');
+  var radiosNodeList = $("input[name='targetaudience']");
 
   for (var each of radiosNodeList) {
     if (each.checked === true) {
@@ -405,10 +404,10 @@ function validateTargetAudience() {
   }
 
   if (isValid === 0) {
-    document.querySelector('.targetaud .validatormessage').style.display = 'none';
+    $('.targetaud .validatormessage')[0].style.display = 'none';
     return true
   } else {
-    document.querySelector('.targetaud .validatormessage').style.display = 'block';
+    $('.targetaud .validatormessage')[0].style.display = 'block';
     return false
   }
 }
@@ -417,7 +416,7 @@ function validateTargetAudience() {
 // Output - A boolean, which implies true/false if album genres is valid/invalid
 function validateGenres() {
   var isValid = 1;
-  var genresNodeList = document.getElementsByName('genre');
+  var genresNodeList = $("input[name='genre']");
 
   for (var each of genresNodeList) {
     if (each.checked === true) {
@@ -426,10 +425,10 @@ function validateGenres() {
   }
 
   if (isValid === 0) {
-    document.querySelector('.genres .validatormessage').style.display = 'none';
+    $('.genres .validatormessage')[0].style.display = 'none';
     return true
   } else {
-    document.querySelector('.genres .validatormessage').style.display = 'block';
+    $('.genres .validatormessage')[0].style.display = 'block';
     return false
   }
 }
@@ -470,8 +469,8 @@ function submitDecision() {
 //Input - An integer 'index', which is used for identifying the row's class name
 function sendDataToForm(index) {
 
-  var fetchedRow = pageData.fetchTableRowByIndex(index);
-  var ObjectFinder_Name = fetchedRow.getElementsByTagName('td')[0].innerText;
+  var ObjectFinder_Name = $('.data-table tbody').find('.row_'+index+' .albumname')[0].innerText;
+
 
   //New way via localstorage
   var currentArray = getLocalStorageArray()
@@ -481,7 +480,7 @@ function sendDataToForm(index) {
     }
   })[0];
 
-  var fetchedformFields=document.getElementsByClassName('loop-track');
+  var fetchedformFields=$('.loop-track');
 
   for(let eachField of fetchedformFields)
   {
@@ -543,8 +542,7 @@ function sendDataToForm(index) {
         A string 'date', which is the album's new release date in yyyy-mm-dd format
 */
 function updateTableRow(index, name, price, desc, audience, genres, date) {
-  var fetchedRow = pageData.fetchTableRowByIndex(index);
-  var cells=fetchedRow.getElementsByTagName('td');
+  var cells=$('.data-table tbody').find('.row_'+index+' td');
 
   for(let i=1; i<arguments.length; i++)
   {
@@ -556,8 +554,7 @@ function updateTableRow(index, name, price, desc, audience, genres, date) {
 //Input - An integer 'index', which is the index of the row to delete and is used to identify the content of row by classname
 function deleteFromStorage(index) {
 
-  var fetchedRow = pageData.fetchTableRowByIndex(index);
-  var ObjectFinder_Name = fetchedRow.getElementsByTagName('td')[0].innerText;
+  var ObjectFinder_Name = $('.data-table tbody').find('.row_'+index+' .albumname')[0].innerText;
 
   if (index == pageData.getrowIdtoEdit()) {
     setWriteMode("Add");
@@ -574,7 +571,7 @@ function deleteFromStorage(index) {
 //Deletes a row from front end table
 //Input - An integer 'index', which is the index of the row to delete and is used to identify the content of row by classname
 function deletefromFrontend(index) {
-  var fetchedRow = pageData.fetchTableRowByIndex(index);
+  var fetchedRow = $('.data-table tbody').find('.row_'+index)[0];
   fetchedRow.remove();
   pageData.setcurrentTheme(pageData.getcurrentTheme);
 }
@@ -586,23 +583,23 @@ function changeTheme(color) {
   pageData.setcurrentTheme(color);
 
   //Fetch headers
-  var allHeaders = document.getElementsByClassName('header');
+  var allHeaders = $('.header');
 
   //Fetch formarea and tablearea
-  var formareaspace = document.getElementsByClassName('formarea')[0];
-  var tableareaspace = document.getElementsByClassName('tablearea')[0];
+  var formareaspace = $('.formarea')[0];
+  var tableareaspace = $('.tablearea')[0];
 
   //Fetch input area
-  var inputareaspace = document.getElementsByClassName('input-box');
+  var inputareaspace = $('.input-box');
 
   //Fetch submit button
-  var submitbutton = document.getElementsByClassName('submit')[0];
+  var submitbutton = $('.submit')[0];
 
   //Fetch validation messages
-  var validationmessages = document.getElementsByClassName('validatormessage');
+  var validationmessages = $('.validatormessage');
 
   //Fetch table cells
-  var tablecells = document.getElementsByClassName('column');
+  var tablecells = $('.column');
 
 
   if (color === 'vivid') {
@@ -739,14 +736,14 @@ function changeTheme(color) {
 //Output - A string, which is the current write mode
 function getWriteMode()
 {
-  return document.getElementsByClassName('submit')[0].innerText;
+  return $('.submit')[0].innerText;
 }
 
 //Setter function for write mode
 //Input - A string 'mode', which will override the current write mode
 function setWriteMode(mode)
 {
-  document.getElementsByClassName('submit')[0].innerText = mode;
+  $('.submit')[0].innerText = mode;
 }
 
 //Getter for local storage array
